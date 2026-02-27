@@ -1,0 +1,46 @@
+[
+  // === CLAUDE CODE ===
+  {
+    "key": "ctrl+shift+a",
+    "command": "workbench.action.terminal.new"
+  },
+
+  // === NAVIGATION ===
+  {
+    "key": "cmd+shift+.",
+    "command": "editor.action.goToReferences"
+  },
+  {
+    "key": "cmd+alt+left",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "cmd+alt+right",
+    "command": "workbench.action.navigateForward"
+  },
+
+  // === EDITING ===
+  {
+    "key": "cmd+d",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+shift+k",
+    "command": "editor.action.deleteLines",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+
+  // === TERMINAL ===
+  {
+    "key": "cmd+`",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+
+  // === FORMATTING ===
+  {
+    "key": "shift+alt+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+  }
+]

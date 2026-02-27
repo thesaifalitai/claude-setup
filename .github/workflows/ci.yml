@@ -1,0 +1,136 @@
+name: CI — Validate Skills & Script
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─── 1. Validate setup.sh syntax ───────────────────────────
+  validate-script:
+    name: Validate setup.sh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check bash syntax
+        run: bash -n setup.sh && echo "✅ setup.sh syntax OK"
+
+      - name: Check script is executable
+        run: |
+          if [ -x setup.sh ]; then
+            echo "✅ setup.sh is executable"
+          else
+            echo "⚠️  setup.sh not executable — run: chmod +x setup.sh"
+            exit 1
+          fi
+
+      - name: Lint with shellcheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          severity: warning
+        continue-on-error: true
+
+  # ─── 2. Validate all SKILL.md files ────────────────────────
+  validate-skills:
+    name: Validate Skills
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every skill has a SKILL.md
+        run: |
+          ERRORS=0
+          for dir in skills/*/; do
+            skill=$(basename "$dir")
+            if [ ! -f "${dir}SKILL.md" ]; then
+              echo "❌ Missing SKILL.md in: $skill"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $skill"
+            fi
+          done
+          if [ $ERRORS -gt 0 ]; then
+            echo "$ERRORS skill(s) missing SKILL.md"
+            exit 1
+          fi
+          echo "All $(ls skills/ | wc -l | tr -d ' ') skills valid"
+
+      - name: Check SKILL.md frontmatter has name and description
+        run: |
+          ERRORS=0
+          for skill_file in skills/*/SKILL.md; do
+            skill=$(basename $(dirname "$skill_file"))
+            if ! grep -q "^name:" "$skill_file"; then
+              echo "❌ $skill: missing 'name:' in frontmatter"
+              ERRORS=$((ERRORS + 1))
+            fi
+            if ! grep -q "^description:" "$skill_file"; then
+              echo "❌ $skill: missing 'description:' in frontmatter"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          if [ $ERRORS -gt 0 ]; then
+            echo "$ERRORS frontmatter error(s) found"
+            exit 1
+          fi
+          echo "✅ All skill frontmatters valid"
+
+      - name: Count and report skills
+        run: |
+          COUNT=$(ls skills/ | wc -l | tr -d ' ')
+          echo "📦 Total skills: $COUNT"
+          ls skills/ | sed 's/^/  - /'
+
+  # ─── 3. Validate VS Code config JSON ───────────────────────
+  validate-vscode:
+    name: Validate VS Code JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate settings.json
+        run: python3 -c "import json; json.load(open('vscode/settings.json')); print('✅ settings.json valid')"
+
+      - name: Validate keybindings.json
+        run: python3 -c "import json; json.load(open('vscode/keybindings.json')); print('✅ keybindings.json valid')"
+
+  # ─── 4. Check README is up to date ─────────────────────────
+  validate-docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          FILES=(README.md CONTRIBUTING.md CHANGELOG.md LICENSE .gitignore CLAUDE.md setup.sh)
+          ERRORS=0
+          for f in "${FILES[@]}"; do
+            if [ -f "$f" ]; then
+              echo "✅ $f"
+            else
+              echo "❌ Missing: $f"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          if [ $ERRORS -gt 0 ]; then exit 1; fi
+
+      - name: Check README mentions all skills
+        run: |
+          MISSING=0
+          for dir in skills/*/; do
+            skill=$(basename "$dir")
+            if ! grep -q "$skill" README.md; then
+              echo "⚠️  README doesn't mention skill: $skill"
+              MISSING=$((MISSING + 1))
+            fi
+          done
+          if [ $MISSING -gt 0 ]; then
+            echo "$MISSING skill(s) not documented in README"
+          else
+            echo "✅ All skills documented in README"
+          fi
+        continue-on-error: true

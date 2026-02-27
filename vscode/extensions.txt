@@ -1,0 +1,76 @@
+# ==========================================
+# VS Code Extensions for Full Stack Freelancer
+# Install all: cat extensions.txt | grep -v "^#" | grep -v "^$" | xargs -L 1 code --install-extension
+# ==========================================
+
+# === CORE (MUST HAVE) ===
+esbenp.prettier-vscode
+dbaeumer.vscode-eslint
+eamodio.gitlens
+usernamehw.errorlens
+streetsidesoftware.code-spell-checker
+
+# === THEMES & ICONS ===
+zhuangtongfa.material-theme
+pkief.material-icon-theme
+
+# === TYPESCRIPT / JAVASCRIPT ===
+dsznajder.es7-react-js-snippets
+burkeholland.simple-react-snippets
+steoates.autoimport
+
+# === REACT NATIVE & EXPO ===
+msjsdiag.vscode-react-native
+expo.vscode-expo-tools
+
+# === FLUTTER / DART ===
+Dart-Code.flutter
+Dart-Code.dart-code
+
+# === NODE.JS / BACKEND ===
+christian-kohler.path-intellisense
+christian-kohler.npm-intellisense
+mikestead.dotenv
+rangav.vscode-thunder-client
+
+# === DATABASE ===
+cweijan.vscode-database-client2
+mtxr.sqltools
+mtxr.sqltools-driver-pg
+prisma.prisma
+
+# === DOCKER & DEVOPS ===
+ms-azuretools.vscode-docker
+ms-vscode-remote.remote-ssh
+HashiCorp.terraform
+
+# === GIT ===
+donjayamanne.githistory
+mhutchie.git-graph
+
+# === PRODUCTIVITY ===
+alefragnani.project-manager
+gruntfuggly.todo-tree
+aaron-bond.better-comments
+wayou.vscode-todo-highlight
+formulahendry.auto-rename-tag
+bradlc.vscode-tailwindcss
+
+# === AI / CLAUDE ===
+# Claude Code is installed via: npm install -g @anthropic-ai/claude-code
+# Then run: claude in any terminal
+
+# === TESTING ===
+Orta.vscode-jest
+ms-playwright.playwright
+
+# === REST API ===
+humao.rest-client
+
+# === MARKDOWN ===
+yzhang.markdown-all-in-one
+davidanson.vscode-markdownlint
+
+# === PYTHON (for scripts) ===
+ms-python.python
+ms-python.black-formatter
