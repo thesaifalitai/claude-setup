@@ -1,11 +1,8 @@
 [
-  // === CLAUDE CODE ===
   {
     "key": "ctrl+shift+a",
     "command": "workbench.action.terminal.new"
   },
-
-  // === NAVIGATION ===
   {
     "key": "cmd+shift+.",
     "command": "editor.action.goToReferences"
@@ -18,8 +15,6 @@
     "key": "cmd+alt+right",
     "command": "workbench.action.navigateForward"
   },
-
-  // === EDITING ===
   {
     "key": "cmd+d",
     "command": "editor.action.copyLinesDownAction",
@@ -30,14 +25,10 @@
     "command": "editor.action.deleteLines",
     "when": "editorTextFocus && !editorReadonly"
   },
-
-  // === TERMINAL ===
   {
     "key": "cmd+`",
     "command": "workbench.action.terminal.toggleTerminal"
   },
-
-  // === FORMATTING ===
   {
     "key": "shift+alt+f",
     "command": "editor.action.formatDocument",
