@@ -161,8 +161,33 @@ h1 "5. Claude Code CLI"
 if command -v claude &>/dev/null; then
   skip "Claude CLI ($(claude --version 2>/dev/null | head -1))"
 else
-  install_npm_global "@anthropic-ai/claude-code" "claude"
+  info "Installing Claude Code CLI..."
+  npm install -g @anthropic-ai/claude-code && ok "Claude Code CLI installed" || warn "Claude Code CLI install failed — try: npm install -g @anthropic-ai/claude-code"
+
+  # Ensure npm global bin is on PATH for this session
+  NPM_GLOBAL_BIN="$(npm config get prefix 2>/dev/null)/bin"
+  export PATH="$NPM_GLOBAL_BIN:$PATH"
+
+  # Add npm global bin to ~/.zshrc for future terminal sessions
+  SHELL_RC="$HOME/.zshrc"
+  NPM_PATH_LINE='export PATH="$(npm config get prefix)/bin:$PATH"'
+  if ! grep -q 'npm config get prefix' "$SHELL_RC" 2>/dev/null; then
+    {
+      echo ''
+      echo '# npm global binaries (e.g. claude, typescript, nest)'
+      echo "$NPM_PATH_LINE"
+    } >> "$SHELL_RC"
+    ok "npm global bin path added to $SHELL_RC"
+  fi
+
+  # Verify claude is now accessible
+  if command -v claude &>/dev/null; then
+    ok "claude command verified: $(claude --version 2>/dev/null | head -1)"
+  else
+    warn "claude not found in PATH yet — open a new terminal and run: claude auth login"
+  fi
 fi
+info "👉  After setup, run: claude auth login  (one-time authentication)"
 
 # ═══════════════════════════════════════════════════════════════
 h1 "6. Global npm Tools"
