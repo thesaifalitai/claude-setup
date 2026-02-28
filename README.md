@@ -7,13 +7,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-purple?style=flat-square)](https://claude.ai/claude-code)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
-[![Skills](https://img.shields.io/badge/Skills-30_Installed-green?style=flat-square)](#-skills-reference)
+[![Skills](https://img.shields.io/badge/Skills-31_Installed-green?style=flat-square)](#-skills-reference)
+[![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-A complete, automated setup for full-stack freelancers using **Claude Code**.
+A complete, automated setup for full-stack freelancers using **Claude Code**, **Cursor**, **Aider**, and **Windsurf**.
 Installs every tool, framework, and AI skill you need — skips what you already have.
 
-[Quick Start](#-quick-start) · [Skills List](#-skills-reference) · [What Gets Installed](#-what-gets-installed) · [VS Code Setup](#-vs-code-setup) · [Contributing](CONTRIBUTING.md)
+[Quick Start](#-quick-start) · [Skills List](#-skills-reference) · [Token Tracking](#-token--cost-tracking) · [Universal AI](#-universal-ai-tool-support) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -25,7 +26,10 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 - ✅ **Smart install** — checks before installing, never duplicates
 - ✅ **Safe to re-run** — run anytime to add new tools or catch missing ones
-- ✅ **30 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **31 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **Interactive skill selector** — choose exactly what you need by category
+- ✅ **Token & cost tracking** — see input/output tokens and cost per request
+- ✅ **Universal AI support** — works with Claude Code, Cursor, Aider, and Windsurf
 - ✅ **VS Code fully configured** — settings, keybindings, 21 extensions
 - ✅ **Freelancer-ready** — Upwork proposals, client replies, project scoping built in
 
@@ -367,6 +371,32 @@ GraphQL schema design + federation, microservices with service mesh, REST API Op
 
 ---
 
+### 🛠️ Utilities
+
+<details>
+<summary><strong>token-tracker</strong> — Token Usage & Cost Monitoring</summary>
+
+**Triggers on:** token usage, API cost, token count, input/output tokens, billing, cost tracking, cost estimate
+
+**What it knows:**
+- Per-request token estimation (input + output)
+- Cost calculation for Claude Opus/Sonnet/Haiku
+- Cross-provider cost comparison (GPT-4o, Gemini, DeepSeek)
+- Session summaries with cumulative stats
+- Cost optimization tips
+
+```bash
+# Example triggers
+"Enable token tracking"
+"How much did this request cost?"
+"Compare costs across Claude models"
+"Show me my session token usage summary"
+```
+
+</details>
+
+---
+
 ### 🔍 Code Quality
 
 <details>
@@ -422,28 +452,28 @@ claude-setup/
 ├── 📄 README.md                   ← You are here
 ├── 📄 CONTRIBUTING.md             ← How to add skills or report issues
 ├── 📄 CHANGELOG.md                ← Version history
+├── 📄 RECOMMENDED_SKILLS.md       ← Voted skills roadmap
 ├── 📄 LICENSE                     ← MIT License
 ├── 📄 .gitignore
 ├── 📄 CLAUDE.md                   ← Global Claude coding rules
+├── 📄 .cursorrules                ← Cursor AI config
+├── 📄 .aider.conf.yml             ← Aider AI config
+├── 📄 .windsurfrules              ← Windsurf AI config
 ├── ⚙️  setup.sh                    ← Main auto-install script
+├── ⚙️  install_skills.sh           ← Interactive skill selector
+├── ⚙️  universal-setup.sh          ← Multi-tool config copier
+├── ⚙️  token-tracker.sh            ← Token & cost tracking utility
 │
-├── 🧠 skills/                     ← 30 Claude Code skills
+├── 🧠 skills/                     ← 31 Claude Code skills
 │   ├── react-native-expo/
-│   │   └── SKILL.md
 │   ├── flutter-dev/
-│   │   └── SKILL.md
 │   ├── nodejs-backend/
-│   │   └── SKILL.md
 │   ├── nextjs-frontend/
-│   │   └── SKILL.md
 │   ├── uiux-design/
-│   │   └── SKILL.md
 │   ├── devops-cicd/
-│   │   └── SKILL.md
 │   ├── upwork-freelancer/
-│   │   └── SKILL.md
 │   ├── fullstack-architecture/
-│   │   └── SKILL.md
+│   ├── token-tracker/             ← NEW: Token & cost tracking skill
 │   └── ... (22 more from community)
 │
 ├── 💻 vscode/
@@ -506,6 +536,121 @@ Freelance:  Upwork · Project Management · Client Communication
 
 ---
 
+## 🎯 Interactive Skill Selection
+
+Don't need all 31 skills? Pick only what you want:
+
+```bash
+# Interactive menu — choose by category
+./install_skills.sh
+
+# Install everything (no prompts)
+./install_skills.sh --all
+
+# Install by category
+./install_skills.sh --category mobile     # React Native + Flutter
+./install_skills.sh --category backend    # Node.js, NestJS, Django, etc.
+./install_skills.sh --category frontend   # Next.js, Vue, TypeScript
+./install_skills.sh --category devops     # Docker, K8s, AWS, CI/CD
+./install_skills.sh --category quality    # Testing, reviews, security
+./install_skills.sh --category freelance  # Upwork proposals + comms
+
+# Install a single skill
+./install_skills.sh --skill token-tracker
+
+# See what's available
+./install_skills.sh --list
+```
+
+**Categories available:** mobile, backend, frontend, uiux, devops, architecture, quality, languages, freelance, utilities
+
+---
+
+## 📊 Token & Cost Tracking
+
+Track how many tokens each AI request uses and what it costs. Every user cares about this — now you can see it.
+
+### Option 1: Claude Skill (Automatic)
+
+Install the `token-tracker` skill and ask Claude:
+
+```bash
+# Install the skill
+./install_skills.sh --skill token-tracker
+
+# Then in any Claude Code session, just say:
+"Enable token tracking"
+"How much did this request cost?"
+"Show me a session summary"
+"Compare costs across models"
+```
+
+Claude will append token usage and cost estimates after every response.
+
+### Option 2: Shell Utility (Manual tracking)
+
+```bash
+# Load the tracker in your terminal
+source token-tracker.sh
+
+# Start tracking
+tt_enable
+
+# After each AI interaction, log character counts
+tt_log 2000 5000 "code review request"
+
+# See session totals
+tt_summary
+
+# Compare costs across providers
+tt_compare
+
+# Set your model for accurate pricing
+tt_set_model opus    # or: sonnet, haiku
+
+# View past sessions
+tt_history
+```
+
+**Cost comparison** across providers:
+```
+💰 Cost Comparison (~1,000 in / ~2,000 out tokens)
+  Claude Opus 4:    $0.165000
+  Claude Sonnet 4:  $0.033000
+  Claude Haiku 3.5: $0.008800
+  GPT-4o:           $0.022500
+  Gemini 1.5 Pro:   $0.011250
+  DeepSeek V3:      $0.002470
+```
+
+---
+
+## 🔀 Universal AI Tool Support
+
+This repo works with **all major AI coding tools**, not just Claude Code. One set of coding standards, multiple tools.
+
+```bash
+# Copy configs to your project for ALL tools at once
+./universal-setup.sh /path/to/your/project
+
+# Or manually copy what you need:
+cp CLAUDE.md /your/project/          # Claude Code
+cp .cursorrules /your/project/       # Cursor
+cp .aider.conf.yml /your/project/    # Aider
+cp .windsurfrules /your/project/     # Windsurf
+```
+
+| AI Tool | Config File | Status |
+|---------|------------|--------|
+| **Claude Code** (priority) | `CLAUDE.md` + `~/.claude/skills/` | Full support (skills + config) |
+| **Cursor** | `.cursorrules` | Full support (coding standards) |
+| **Aider** | `.aider.conf.yml` | Full support (model + settings) |
+| **Windsurf** (Codeium) | `.windsurfrules` | Full support (coding standards) |
+
+> Claude Code is our **primary focus** — it gets the full skill system with 31 specialized skills. Other tools get the shared coding standards and project configuration.
+
+---
+
 ## ❓ FAQ
 
 **Q: Is it safe to re-run `setup.sh`?**
@@ -547,6 +692,8 @@ Skills sourced from:
 <div align="center">
 
 **Made for freelancers who want to move fast without breaking things.**
+
+**Works with:** Claude Code · Cursor · Aider · Windsurf
 
 ⭐ Star this repo if it saved you setup time!
 

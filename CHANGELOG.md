@@ -40,14 +40,46 @@ Format: [Semantic Versioning](https://semver.org/) — `MAJOR.MINOR.PATCH`
 
 ---
 
+## [1.1.0] — 2026-02-28
+
+### Added
+- **Interactive Skill Selector** — `install_skills.sh` now shows a menu to pick skills by category or individually
+  - `--all` flag for headless install of everything
+  - `--category <name>` to install by category (mobile, backend, frontend, devops, etc.)
+  - `--skill <name>` to install a single skill
+  - `--list` to see all available skills and their install status
+- **Token & Cost Tracking** — new `token-tracker` skill + `token-tracker.sh` shell utility
+  - Per-request token estimation (input/output)
+  - Cost calculation for Claude Opus/Sonnet/Haiku
+  - Cross-provider cost comparison (GPT-4o, Gemini, DeepSeek)
+  - Session summaries with cumulative stats
+  - Usage history logging to `~/.claude/usage-logs/`
+- **Universal AI Tool Support** — configs for multiple AI coding tools
+  - `.cursorrules` — Cursor IDE support
+  - `.aider.conf.yml` — Aider CLI support
+  - `.windsurfrules` — Windsurf (Codeium) support
+  - `universal-setup.sh` — interactive script to copy configs to any project
+- **Recommended Skills Roadmap** — `RECOMMENDED_SKILLS.md` with community-voted skill priorities
+  - Top 5: Supabase, Stripe, Prisma, AI Integration, Auth Patterns
+  - Medium priority: Tailwind, React Query, Testing, Database Design, Monorepo
+  - Community voting via GitHub Issues
+
+### Changed
+- `install_skills.sh` rewritten from flat installer to interactive category-based selector
+- README updated with new sections: Skill Selection, Token Tracking, Universal AI Support
+- Total skills: 30 → 31 (added `token-tracker`)
+
+---
+
 ## [Unreleased]
 
 ### Planned
 - Linux (Ubuntu/Debian) support for `setup.sh`
 - Windows WSL2 support
-- `supabase` skill
+- `supabase-expert` skill
 - `stripe-expert` skill
 - `prisma-expert` skill
+- `ai-integration` skill
 - `react-query-expert` skill
 - Auto-update command (`./setup.sh --update`)
 
