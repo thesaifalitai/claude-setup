@@ -70,6 +70,12 @@ SKILL_CATEGORIES=(
   ["upwork-freelancer"]="freelance"
   # Token Tracking
   ["token-tracker"]="utilities"
+  # New skills (v1.2.0)
+  ["supabase-expert"]="backend"
+  ["stripe-expert"]="backend"
+  ["prisma-expert"]="backend"
+  ["ai-integration"]="utilities"
+  ["auth-patterns"]="backend"
 )
 
 CATEGORY_LABELS=(
@@ -298,6 +304,64 @@ interactive_pick_skills() {
   echo -e "  ✅ $count skills installed"
 }
 
+search_skills() {
+  local query="$1"
+  local found=0
+
+  echo ""
+  echo -e "  ${BOLD}Search results for: ${CYAN}$query${NC}"
+  echo ""
+
+  for skill_dir in "$SCRIPT_DIR/skills"/*/; do
+    local skill_name=$(basename "$skill_dir")
+    [ -f "$skill_dir/SKILL.md" ] || continue
+
+    # Search in skill name
+    if echo "$skill_name" | grep -qi "$query"; then
+      local cat="${SKILL_CATEGORIES[$skill_name]:-other}"
+      local installed=""
+      if [ -f "$SKILLS_DIR/$skill_name/SKILL.md" ]; then
+        installed=" ${GREEN}[installed]${NC}"
+      fi
+      printf "  ${CYAN}%-30s${NC} ${DIM}(%s)${NC}%b\n" "$skill_name" "$cat" "$installed"
+      found=$((found + 1))
+      continue
+    fi
+
+    # Search in skill description (YAML frontmatter)
+    if grep -qi "$query" "$skill_dir/SKILL.md" 2>/dev/null; then
+      local cat="${SKILL_CATEGORIES[$skill_name]:-other}"
+      local installed=""
+      if [ -f "$SKILLS_DIR/$skill_name/SKILL.md" ]; then
+        installed=" ${GREEN}[installed]${NC}"
+      fi
+      printf "  ${CYAN}%-30s${NC} ${DIM}(%s)${NC}%b\n" "$skill_name" "$cat" "$installed"
+      found=$((found + 1))
+    fi
+  done
+
+  echo ""
+  if [ "$found" -eq 0 ]; then
+    warn "No skills found matching '$query'"
+    info "Try: ./install_skills.sh --list to see all available skills"
+  else
+    echo -e "  ${DIM}$found skill(s) found. Install with: ./install_skills.sh --skill <name>${NC}"
+  fi
+  echo ""
+}
+
+remove_skill() {
+  local skill_name="$1"
+
+  if [ ! -d "$SKILLS_DIR/$skill_name" ]; then
+    warn "Skill not installed: $skill_name"
+    return 0
+  fi
+
+  rm -rf "$SKILLS_DIR/$skill_name"
+  ok "Skill removed: $skill_name"
+}
+
 install_claude_md() {
   if [ -f "$HOME/.claude/CLAUDE.md" ]; then
     skip "~/.claude/CLAUDE.md already exists"
@@ -314,22 +378,26 @@ show_help() {
   echo -e "${BOLD}Usage:${NC} ./install_skills.sh [OPTIONS]"
   echo ""
   echo -e "${BOLD}Options:${NC}"
-  echo "  (no args)          Interactive skill selection menu"
-  echo "  --all              Install all skills (no prompts)"
-  echo "  --list             Show available skills and status"
-  echo "  --category <name>  Install skills by category"
-  echo "                     Categories: mobile, backend, frontend, uiux,"
-  echo "                     devops, architecture, quality, languages,"
-  echo "                     freelance, utilities"
-  echo "  --skill <name>     Install a single skill by name"
-  echo "  --help             Show this help message"
+  echo "  (no args)           Interactive skill selection menu"
+  echo "  --all               Install all skills (no prompts)"
+  echo "  --list              Show available skills and status"
+  echo "  --category <name>   Install skills by category"
+  echo "                      Categories: mobile, backend, frontend, uiux,"
+  echo "                      devops, architecture, quality, languages,"
+  echo "                      freelance, utilities"
+  echo "  --skill <name>      Install a single skill by name"
+  echo "  --search <keyword>  Search skills by name or content"
+  echo "  --remove <name>     Remove an installed skill"
+  echo "  --help              Show this help message"
   echo ""
   echo -e "${BOLD}Examples:${NC}"
-  echo "  ./install_skills.sh                     # Interactive menu"
-  echo "  ./install_skills.sh --all               # Install everything"
-  echo "  ./install_skills.sh --category mobile    # Mobile skills only"
-  echo "  ./install_skills.sh --skill token-tracker # Single skill"
-  echo "  ./install_skills.sh --list               # See what's available"
+  echo "  ./install_skills.sh                       # Interactive menu"
+  echo "  ./install_skills.sh --all                 # Install everything"
+  echo "  ./install_skills.sh --category mobile      # Mobile skills only"
+  echo "  ./install_skills.sh --skill token-tracker   # Single skill"
+  echo "  ./install_skills.sh --search payment        # Find payment-related skills"
+  echo "  ./install_skills.sh --remove flutter-expert # Remove a skill"
+  echo "  ./install_skills.sh --list                 # See what's available"
   echo ""
 }
 
@@ -357,6 +425,20 @@ case "${1:-}" in
       exit 1
     fi
     install_skill "$2"
+    ;;
+  --search)
+    if [ -z "${2:-}" ]; then
+      err "Please specify a search keyword."
+      exit 1
+    fi
+    search_skills "$2"
+    ;;
+  --remove)
+    if [ -z "${2:-}" ]; then
+      err "Please specify a skill name to remove."
+      exit 1
+    fi
+    remove_skill "$2"
     ;;
   --help|-h)
     show_help

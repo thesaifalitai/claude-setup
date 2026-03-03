@@ -71,17 +71,70 @@ Format: [Semantic Versioning](https://semver.org/) — `MAJOR.MINOR.PATCH`
 
 ---
 
+## [1.2.0] — 2026-03-03
+
+### Added
+
+**Tier 1 — Major Features:**
+- **Health Check (`doctor.sh`)** — Verify your entire dev environment like `flutter doctor`
+  - Checks 20+ tools: OS, Git, Node.js, Claude CLI, Docker, PostgreSQL, Redis, etc.
+  - Pass/warning/fail summary with fix hints for every issue
+  - Works on both macOS and Linux
+- **Top 5 Expert Skills** — Most requested skills implemented:
+  - `supabase-expert` — RLS, Edge Functions, Realtime, Storage, migrations
+  - `stripe-expert` — Checkout, subscriptions, webhooks, Connect, billing portal
+  - `prisma-expert` — Schema design, queries, migrations, seeding, connection pooling
+  - `ai-integration` — Claude/OpenAI API, RAG, embeddings, Vercel AI SDK, streaming
+  - `auth-patterns` — NextAuth v5, JWT, RBAC, OAuth, MFA, password security
+- **Project Scaffolding (`scaffold.sh`)** — Generate ready-to-go projects:
+  - `nextjs` — Next.js + Tailwind + Prisma + NextAuth
+  - `nestjs` — NestJS + Prisma + JWT + Swagger
+  - `expo` — React Native + Expo Router + NativeWind
+  - `flutter` — Flutter + Riverpod + GoRouter + Freezed
+  - `fullstack` — Monorepo: Next.js + NestJS + shared types + Docker Compose
+  - All projects include AI configs and `.env.example`
+- **Linux Support (`setup-linux.sh`)** — Full Ubuntu/Debian/derivatives support
+  - Same 19 tools via `apt` instead of Homebrew
+  - Proper systemd service management
+  - Docker, NVM, Flutter via snap
+
+**Tier 2 — Developer Experience:**
+- **Auto-Update (`update.sh`)** — Keep skills and configs current
+  - `--skills` — update skills only (with checksum comparison)
+  - `--configs` — update CLAUDE.md only
+  - `--repo` — pull latest from GitHub
+  - Automatic backup of existing configs before updating
+- **Skill Search** — `install_skills.sh --search <keyword>`
+  - Searches skill names and descriptions (YAML frontmatter + content)
+  - Shows install status for each result
+- **Skill Remove** — `install_skills.sh --remove <name>`
+- **.env Generator (`generate-env.sh`)** — Generate env templates:
+  - Templates: nextjs, nestjs, expo, supabase, fullstack
+  - Includes all common variables with helpful comments
+- **GitHub Actions Templates** — Ready-to-copy CI/CD pipelines:
+  - `ci-nextjs.yml` — Lint, test, build with PostgreSQL
+  - `ci-nestjs.yml` — Unit + e2e tests with PostgreSQL + Redis
+  - `deploy-vercel.yml` — Auto-deploy to Vercel
+  - `docker-build.yml` — Build and push to GHCR
+
+### Changed
+- Total skills: 31 → 36 (+5 expert skills)
+- `install_skills.sh` now supports `--search` and `--remove` flags
+- README expanded with 7 new documentation sections
+- Added Linux badge to project header
+
+---
+
 ## [Unreleased]
 
 ### Planned
-- Linux (Ubuntu/Debian) support for `setup.sh`
 - Windows WSL2 support
-- `supabase-expert` skill
-- `stripe-expert` skill
-- `prisma-expert` skill
-- `ai-integration` skill
 - `react-query-expert` skill
-- Auto-update command (`./setup.sh --update`)
+- `tailwind-expert` skill
+- `testing-patterns` skill
+- `database-design` skill
+- `monorepo-expert` skill
+- Skill dependency resolution (auto-install related skills)
 
 ---
 
