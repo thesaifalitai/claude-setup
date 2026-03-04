@@ -7,14 +7,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-purple?style=flat-square)](https://claude.ai/claude-code)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
-[![Skills](https://img.shields.io/badge/Skills-31_Installed-green?style=flat-square)](#-skills-reference)
+[![Linux](https://img.shields.io/badge/Linux-Ubuntu_%26_Debian-orange?style=flat-square&logo=linux)](setup-linux.sh)
+[![Skills](https://img.shields.io/badge/Skills-36_Installed-green?style=flat-square)](#-skills-reference)
 [![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 A complete, automated setup for full-stack freelancers using **Claude Code**, **Cursor**, **Aider**, and **Windsurf**.
 Installs every tool, framework, and AI skill you need — skips what you already have.
 
-[Quick Start](#-quick-start) · [Skills List](#-skills-reference) · [Token Tracking](#-token--cost-tracking) · [Universal AI](#-universal-ai-tool-support) · [Contributing](CONTRIBUTING.md)
+[Quick Start](#-quick-start) · [Skills](#-skills-reference) · [Doctor](#-health-check) · [Scaffold](#-project-scaffolding) · [Token Tracking](#-token--cost-tracking) · [Universal AI](#-universal-ai-tool-support) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -26,10 +27,16 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 - ✅ **Smart install** — checks before installing, never duplicates
 - ✅ **Safe to re-run** — run anytime to add new tools or catch missing ones
-- ✅ **31 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **36 Claude AI skills** — auto-trigger the right expert for every task
 - ✅ **Interactive skill selector** — choose exactly what you need by category
+- ✅ **Health check (`./doctor.sh`)** — verify your entire dev environment like `flutter doctor`
+- ✅ **Project scaffolding** — generate Next.js, NestJS, Expo, Flutter, or fullstack monorepo projects
 - ✅ **Token & cost tracking** — see input/output tokens and cost per request
 - ✅ **Universal AI support** — works with Claude Code, Cursor, Aider, and Windsurf
+- ✅ **Linux support** — Ubuntu, Debian, and derivatives
+- ✅ **Auto-update** — pull latest skills and configs with `./update.sh`
+- ✅ **.env generator** — generate environment templates for any stack
+- ✅ **GitHub Actions templates** — CI/CD pipelines ready to copy
 - ✅ **VS Code fully configured** — settings, keybindings, 21 extensions
 - ✅ **Freelancer-ready** — Upwork proposals, client replies, project scoping built in
 
@@ -37,16 +44,21 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 ## 🏃 Quick Start
 
-> **Requires:** macOS (Apple Silicon or Intel) · Internet connection · ~15 min
+> **Requires:** macOS or Linux · Internet connection · ~15 min
 
 ```bash
 # Clone the repo
 git clone https://github.com/thesaifalitai/claude-setup.git
 cd claude-setup
 
-# Make executable and run
-chmod +x setup.sh
-./setup.sh
+# macOS (Apple Silicon & Intel)
+chmod +x setup.sh && ./setup.sh
+
+# Linux (Ubuntu/Debian)
+chmod +x setup-linux.sh && ./setup-linux.sh
+
+# Verify your environment
+./doctor.sh
 ```
 
 That's it. The script handles everything else — including skipping tools you already have.
@@ -459,12 +471,17 @@ claude-setup/
 ├── 📄 .cursorrules                ← Cursor AI config
 ├── 📄 .aider.conf.yml             ← Aider AI config
 ├── 📄 .windsurfrules              ← Windsurf AI config
-├── ⚙️  setup.sh                    ← Main auto-install script
+├── ⚙️  setup.sh                    ← Main install script (macOS)
+├── ⚙️  setup-linux.sh              ← Linux install script (Ubuntu/Debian)
 ├── ⚙️  install_skills.sh           ← Interactive skill selector
+├── ⚙️  doctor.sh                   ← Health check (like flutter doctor)
+├── ⚙️  scaffold.sh                 ← Project scaffolding generator
+├── ⚙️  update.sh                   ← Auto-update skills and configs
+├── ⚙️  generate-env.sh             ← .env.example generator
 ├── ⚙️  universal-setup.sh          ← Multi-tool config copier
 ├── ⚙️  token-tracker.sh            ← Token & cost tracking utility
 │
-├── 🧠 skills/                     ← 31 Claude Code skills
+├── 🧠 skills/                     ← 36 Claude Code skills
 │   ├── react-native-expo/
 │   ├── flutter-dev/
 │   ├── nodejs-backend/
@@ -473,8 +490,21 @@ claude-setup/
 │   ├── devops-cicd/
 │   ├── upwork-freelancer/
 │   ├── fullstack-architecture/
-│   ├── token-tracker/             ← NEW: Token & cost tracking skill
+│   ├── supabase-expert/           ← NEW: Supabase (RLS, Edge Functions, Auth)
+│   ├── stripe-expert/             ← NEW: Payments (Checkout, Subscriptions, Webhooks)
+│   ├── prisma-expert/             ← NEW: ORM (Schema, Queries, Migrations)
+│   ├── ai-integration/            ← NEW: LLM integration (RAG, Streaming, Claude API)
+│   ├── auth-patterns/             ← NEW: Auth (NextAuth, JWT, RBAC, OAuth)
+│   ├── token-tracker/             ← Token & cost tracking skill
 │   └── ... (22 more from community)
+│
+├── 📁 templates/
+│   ├── github-actions/            ← CI/CD pipeline templates
+│   │   ├── ci-nextjs.yml
+│   │   ├── ci-nestjs.yml
+│   │   ├── deploy-vercel.yml
+│   │   └── docker-build.yml
+│   └── env-examples/              ← .env templates
 │
 ├── 💻 vscode/
 │   ├── settings.json              ← VS Code settings
@@ -538,7 +568,7 @@ Freelance:  Upwork · Project Management · Client Communication
 
 ## 🎯 Interactive Skill Selection
 
-Don't need all 31 skills? Pick only what you want:
+Don't need all 36 skills? Pick only what you want:
 
 ```bash
 # Interactive menu — choose by category
@@ -549,20 +579,160 @@ Don't need all 31 skills? Pick only what you want:
 
 # Install by category
 ./install_skills.sh --category mobile     # React Native + Flutter
-./install_skills.sh --category backend    # Node.js, NestJS, Django, etc.
+./install_skills.sh --category backend    # Node.js, NestJS, Django, Supabase, Stripe, Prisma, Auth
 ./install_skills.sh --category frontend   # Next.js, Vue, TypeScript
 ./install_skills.sh --category devops     # Docker, K8s, AWS, CI/CD
 ./install_skills.sh --category quality    # Testing, reviews, security
 ./install_skills.sh --category freelance  # Upwork proposals + comms
 
 # Install a single skill
-./install_skills.sh --skill token-tracker
+./install_skills.sh --skill supabase-expert
+
+# Search for skills by keyword
+./install_skills.sh --search payment      # Find payment-related skills
+./install_skills.sh --search auth         # Find auth-related skills
+
+# Remove a skill
+./install_skills.sh --remove flutter-expert
 
 # See what's available
 ./install_skills.sh --list
 ```
 
 **Categories available:** mobile, backend, frontend, uiux, devops, architecture, quality, languages, freelance, utilities
+
+---
+
+## 🩺 Health Check
+
+Verify your entire development environment with a single command — like `flutter doctor` for your whole stack:
+
+```bash
+./doctor.sh
+```
+
+```
+━━━ System ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [✓] macOS 14.2 (arm64)
+  [✓] Disk space: 85GB available
+
+━━━ Core Tools ━━━━━━━━━━━━━━━━━━━━━━━━
+  [✓] Git 2.43.0
+  [✓] GitHub CLI 2.42.0 — authenticated
+
+━━━ Node.js Ecosystem ━━━━━━━━━━━━━━━━━
+  [✓] Node.js v20.11.0
+  [✓] npm 10.2.4
+
+━━━ Claude Code ━━━━━━━━━━━━━━━━━━━━━━━
+  [✓] Claude CLI 1.0.3
+  [✓] Claude skills: 36 installed
+
+━━━ Infrastructure ━━━━━━━━━━━━━━━━━━━━
+  [✓] Docker 24.0.7 — daemon running
+  [✓] PostgreSQL 16.1 — accepting connections
+  [✓] Redis 7.2.3 — responding
+
+  Summary: 22 passed  3 warnings  0 failed
+```
+
+Checks: OS, disk space, Git, GitHub CLI, Node.js, npm, NVM, Claude CLI, skills, Flutter, Docker, PostgreSQL, Redis, Nginx, AWS CLI, VS Code, and all AI tool configs.
+
+---
+
+## 🏗️ Project Scaffolding
+
+Generate a fully configured project in seconds — all configs, env files, and AI tools pre-wired:
+
+```bash
+# Interactive menu
+./scaffold.sh
+
+# Direct command
+./scaffold.sh nextjs my-saas-app       # Next.js + Tailwind + Prisma + NextAuth
+./scaffold.sh nestjs my-api             # NestJS + Prisma + JWT + Swagger
+./scaffold.sh expo my-mobile-app        # React Native + Expo Router + NativeWind
+./scaffold.sh flutter my_app            # Flutter + Riverpod + GoRouter
+./scaffold.sh fullstack my-platform     # Monorepo: Next.js + NestJS + shared types
+```
+
+Every scaffolded project includes:
+- All AI tool configs (CLAUDE.md, .cursorrules, .aider.conf.yml, .windsurfrules)
+- `.env.example` with all required variables
+- Git initialized with first commit
+- Docker Compose for local services (fullstack)
+
+---
+
+## 🔄 Auto-Update
+
+Keep your skills and configs up to date:
+
+```bash
+# Update everything (repo + skills + configs)
+./update.sh
+
+# Update skills only
+./update.sh --skills
+
+# Update CLAUDE.md only
+./update.sh --configs
+
+# Check installed version
+./update.sh --version
+```
+
+---
+
+## 📋 .env Generator
+
+Generate `.env.example` templates for any stack:
+
+```bash
+# Interactive menu
+./generate-env.sh
+
+# Direct command
+./generate-env.sh nextjs ./my-project    # Next.js env template
+./generate-env.sh nestjs ./my-api        # NestJS env template
+./generate-env.sh supabase .             # Supabase env template
+./generate-env.sh fullstack .            # Fullstack monorepo
+./generate-env.sh expo .                 # React Native / Expo
+```
+
+---
+
+## 🐧 Linux Support
+
+Full Linux support via `setup-linux.sh` — works on Ubuntu 22.04+, Debian 12+, and derivatives:
+
+```bash
+# Linux install
+chmod +x setup-linux.sh && ./setup-linux.sh
+
+# Then verify
+./doctor.sh
+```
+
+Installs the same 19 tools using `apt` instead of Homebrew, with proper systemd service management.
+
+---
+
+## 📦 GitHub Actions Templates
+
+Ready-to-copy CI/CD pipelines in `templates/github-actions/`:
+
+| Template | File | What It Does |
+|----------|------|-------------|
+| Next.js CI | `ci-nextjs.yml` | Lint, type check, test, build with PostgreSQL |
+| NestJS CI | `ci-nestjs.yml` | Lint, test, e2e test with PostgreSQL + Redis |
+| Vercel Deploy | `deploy-vercel.yml` | Auto-deploy to Vercel on push to main |
+| Docker Build | `docker-build.yml` | Build and push to GitHub Container Registry |
+
+```bash
+# Copy a template to your project
+cp templates/github-actions/ci-nextjs.yml your-project/.github/workflows/ci.yml
+```
 
 ---
 
