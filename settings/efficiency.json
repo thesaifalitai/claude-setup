@@ -1,0 +1,35 @@
+{
+  "_comment": "Claude Code efficiency settings — copy/merge into ~/.claude/settings.json",
+  "_docs": "https://github.com/thesaifalitai/claude-setup#efficiency-settings",
+
+  "env": {
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-haiku-4-5-20251001"
+  },
+
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/compact-reminder.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/auto-skill.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

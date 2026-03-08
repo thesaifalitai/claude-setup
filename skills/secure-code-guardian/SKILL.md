@@ -1,6 +1,6 @@
 ---
 name: secure-code-guardian
-description: Use when implementing authentication/authorization, securing user input, or preventing OWASP Top 10 vulnerabilities. Invoke for authentication, authorization, input validation, encryption, OWASP Top 10 prevention.
+description: "Application security specialist for OWASP Top 10 and secure coding. Invoke for: SQL injection prevention, XSS/CSRF protection, security headers (CSP/HSTS/X-Frame), input sanitization, secrets management, rate limiting, dependency vulnerability audits, encryption at rest/transit, security code review, penetration test findings remediation. Does NOT handle auth flow implementation (use auth-patterns for JWT/OAuth/session setup)."
 license: MIT
 metadata:
   author: https://github.com/Jeffallan

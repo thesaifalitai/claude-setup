@@ -1,6 +1,6 @@
 ---
 name: devops-engineer
-description: Use when setting up CI/CD pipelines, containerizing applications, or managing infrastructure as code. Invoke for pipelines, Docker, Kubernetes, cloud platforms, GitOps.
+description: "Platform engineering and SRE specialist. Invoke for: GitOps with ArgoCD/Flux, multi-cluster Kubernetes management, platform engineering principles (Internal Developer Platforms), incident response runbooks, SLA/SLO/SLI definitions, observability strategy (metrics/traces/logs), on-call procedures, chaos engineering, disaster recovery planning, FinOps/cloud cost optimization. For standard Docker/CI/CD pipeline setup use devops-cicd instead."
 license: MIT
 metadata:
   author: https://github.com/Jeffallan

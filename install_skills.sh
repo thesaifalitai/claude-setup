@@ -49,6 +49,7 @@ SKILL_CATEGORIES=(
   ["typescript-pro"]="frontend"
   # UI/UX
   ["uiux-design"]="uiux"
+  ["ui-ux-pro-max"]="uiux"
   # DevOps
   ["devops-cicd"]="devops"
   ["devops-engineer"]="devops"
@@ -68,14 +69,20 @@ SKILL_CATEGORIES=(
   ["python-pro"]="languages"
   # Freelance
   ["upwork-freelancer"]="freelance"
-  # Token Tracking
+  # Token Tracking & Optimization
   ["token-tracker"]="utilities"
+  ["token-optimizer"]="utilities"
   # New skills (v1.2.0)
   ["supabase-expert"]="backend"
   ["stripe-expert"]="backend"
   ["prisma-expert"]="backend"
   ["ai-integration"]="utilities"
   ["auth-patterns"]="backend"
+  # New skills (v1.3.0)
+  ["technical-writer"]="management"
+  ["cto-advisor"]="management"
+  ["project-manager"]="management"
+  ["task-estimator"]="management"
 )
 
 CATEGORY_LABELS=(
@@ -89,6 +96,7 @@ CATEGORY_LABELS=(
   "languages:📝 Languages"
   "freelance:💼 Freelancing"
   "utilities:🛠️  Utilities"
+  "management:📋 Project & Leadership"
 )
 
 # ─── Functions ────────────────────────────────────────────────
@@ -177,7 +185,7 @@ install_skill() {
   fi
 
   mkdir -p "$SKILLS_DIR/$skill_name"
-  cp "$skill_dir/SKILL.md" "$SKILLS_DIR/$skill_name/SKILL.md"
+  cp -r "$skill_dir/." "$SKILLS_DIR/$skill_name/"
   ok "Skill installed: $skill_name"
 }
 

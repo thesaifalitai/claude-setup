@@ -1,13 +1,6 @@
 ---
 name: uiux-design
-description: >
-  Expert UI/UX design and implementation skill. ALWAYS trigger for ANY task involving UI design,
-  UX patterns, component design systems, Tailwind CSS, shadcn/ui, Radix UI, accessibility (WCAG),
-  responsive design, dark mode, color systems, typography, spacing systems, animation/micro-interactions,
-  Figma-to-code, mobile-first design, design tokens, Storybook component library, user flows,
-  wireframes, or design reviews. Also triggers for: "make it look good", "improve the UI",
-  "design a component", "create a design system", "responsive layout", "beautiful interface",
-  "modern design", "clean UI", "improve UX", "accessibility audit".
+description: "UI component code implementation specialist. Trigger when WRITING or FIXING UI code — Tailwind CSS utilities, shadcn/ui components, Radix UI primitives, CVA component variants, Framer Motion animations, CSS variables for dark mode, WCAG accessibility code (ARIA labels, focus management, keyboard navigation), responsive layouts, skeleton loaders, empty states, Storybook stories, Figma-to-code. Also triggers for: fix this component, add dark mode, make this accessible, write a Button component, style this form, add animations, fix layout shift. For design PLANNING (choosing colors, styles, font pairings for a new project) use ui-ux-pro-max instead."
 ---
 
 # UI/UX Design Expert

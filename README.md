@@ -8,14 +8,15 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-purple?style=flat-square)](https://claude.ai/claude-code)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
 [![Linux](https://img.shields.io/badge/Linux-Ubuntu_%26_Debian-orange?style=flat-square&logo=linux)](setup-linux.sh)
-[![Skills](https://img.shields.io/badge/Skills-36_Installed-green?style=flat-square)](#-skills-reference)
+[![Skills](https://img.shields.io/badge/Skills-42_Installed-green?style=flat-square)](#-skills-reference)
 [![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
+[![Web & Desktop](https://img.shields.io/badge/Web_%26_Desktop-claude.ai_%7C_Desktop_App-indigo?style=flat-square)](#-web--desktop-support)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-A complete, automated setup for full-stack freelancers using **Claude Code**, **Cursor**, **Aider**, and **Windsurf**.
+A complete, automated setup for full-stack freelancers using **Claude Code**, **Cursor**, **Aider**, **Windsurf**, **claude.ai Web**, and **Claude Desktop**.
 Installs every tool, framework, and AI skill you need — skips what you already have.
 
-[Quick Start](#-quick-start) · [Skills](#-skills-reference) · [Doctor](#-health-check) · [Scaffold](#-project-scaffolding) · [Token Tracking](#-token--cost-tracking) · [Universal AI](#-universal-ai-tool-support) · [Contributing](CONTRIBUTING.md)
+[Quick Start](#-quick-start) · [Skills](#-skills-reference) · [Web & Desktop](#-web--desktop-support) · [Doctor](#-health-check) · [Scaffold](#-project-scaffolding) · [Token Tracking](#-token--cost-tracking) · [Universal AI](#-universal-ai-tool-support) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -27,12 +28,14 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 - ✅ **Smart install** — checks before installing, never duplicates
 - ✅ **Safe to re-run** — run anytime to add new tools or catch missing ones
-- ✅ **36 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **42 Claude AI skills** — auto-trigger the right expert for every task
 - ✅ **Interactive skill selector** — choose exactly what you need by category
 - ✅ **Health check (`./doctor.sh`)** — verify your entire dev environment like `flutter doctor`
 - ✅ **Project scaffolding** — generate Next.js, NestJS, Expo, Flutter, or fullstack monorepo projects
 - ✅ **Token & cost tracking** — see input/output tokens and cost per request
+- ✅ **Token optimizer** — built-in model selection, context management, and prompt efficiency to maximise every token
 - ✅ **Universal AI support** — works with Claude Code, Cursor, Aider, and Windsurf
+- ✅ **Web & Desktop support** — export skills as system prompts for claude.ai Projects and Claude Desktop
 - ✅ **Linux support** — Ubuntu, Debian, and derivatives
 - ✅ **Auto-update** — pull latest skills and configs with `./update.sh`
 - ✅ **.env generator** — generate environment templates for any stack
@@ -69,7 +72,30 @@ That's it. The script handles everything else — including skipping tools you a
 curl -fsSL https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/setup.sh | bash
 ```
 
-> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 30 skills installed.
+> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 42 skills installed.
+
+### Efficiency hooks (auto-installed by setup.sh)
+
+The setup script automatically installs two hooks + optimal settings:
+
+| Hook | What it does |
+|------|-------------|
+| `compact-reminder.sh` | Reminds you to `/compact` at turns 20, 40, 60+ — prevents context overflow |
+| `auto-skill.sh` | Detects the file type you're editing and suggests the right skill automatically |
+
+**Settings applied:**
+
+| Setting | Value | Benefit |
+|---------|-------|---------|
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | `50` | Auto-compacts at 50% context usage |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | `haiku` | Subagents use Haiku (3× cheaper) |
+| `MAX_THINKING_TOKENS` | `10000` | Caps internal reasoning (faster + focused) |
+
+To install hooks separately:
+
+```bash
+./install_hooks.sh
+```
 
 ---
 
@@ -285,6 +311,33 @@ Expert TypeScript: advanced generics, template literal types, discriminated unio
 
 </details>
 
+<details>
+<summary><strong>ui-ux-pro-max</strong> — Design Intelligence (67 styles · 96 palettes · 57 fonts · 100 reasoning rules)</summary>
+
+**Triggers on:** design, build, create, implement, review, fix, improve UI/UX for websites, landing pages, dashboards, SaaS, mobile apps, e-commerce, portfolios
+
+**What it knows:**
+- 67 UI styles — glassmorphism, claymorphism, brutalism, bento grid, neumorphism and more
+- 96 industry-specific color palettes with hex values and mood context
+- 57 Google Font pairings with CSS imports
+- 100 reasoning rules mapping product type → optimal style/color/typography
+- 99 UX best practices (accessibility, animations, touch targets)
+- 25 chart types with library recommendations
+- Stack-specific guidelines: React, Next.js, Vue, Flutter, React Native, SwiftUI, shadcn/ui, Jetpack Compose
+
+**How it works:** Runs a Python BM25 search engine over local CSV databases to generate a complete design system — then uses that as a blueprint for code generation.
+
+```bash
+# Claude automatically runs:
+python3 ~/.claude/skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness" --design-system -p "Serenity Spa"
+
+# Then generates pixel-perfect code using the design system output
+```
+
+> **Requires Python 3** — install with `brew install python3` (macOS) or `apt install python3` (Linux)
+
+</details>
+
 ---
 
 ### 🔧 DevOps & Infrastructure
@@ -391,18 +444,150 @@ GraphQL schema design + federation, microservices with service mesh, REST API Op
 **Triggers on:** token usage, API cost, token count, input/output tokens, billing, cost tracking, cost estimate
 
 **What it knows:**
-- Per-request token estimation (input + output)
-- Cost calculation for Claude Opus/Sonnet/Haiku
-- Cross-provider cost comparison (GPT-4o, Gemini, DeepSeek)
+- Per-request token estimation (input + output + context %)
+- Cost calculation for Claude Opus/Sonnet/Haiku with cache pricing
+- Cross-provider cost comparison (GPT-4o, Gemini 2.0, DeepSeek)
 - Session summaries with cumulative stats
-- Cost optimization tips
+- Context window usage tracker with /compact warnings
+- Daily / monthly budget estimator by use case
 
 ```bash
-# Example triggers
 "Enable token tracking"
 "How much did this request cost?"
 "Compare costs across Claude models"
 "Show me my session token usage summary"
+"Estimate my monthly cost if I use Claude 2 hours/day"
+```
+
+</details>
+
+<details>
+<summary><strong>token-optimizer</strong> — Active Token Saving & Context Efficiency</summary>
+
+**Triggers on:** save tokens, reduce cost, context window full, which model should I use, Haiku vs Sonnet vs Opus, when to compact, prompt is too long, Claude is getting slow
+
+**What it knows:**
+- Model selection guide — exact task → model mapping (Haiku / Sonnet / Opus)
+- When and how to use `/compact`, `/clear`, and subagents
+- Prompt engineering templates that eliminate wasted tokens
+- Context inclusion strategy (what to include vs exclude)
+- Subagent strategy to keep main context clean
+- Prompt caching patterns (90% input cost reduction)
+- Session efficiency checklist
+- Emergency context-full recovery procedure
+
+```bash
+"Which model should I use for code generation?"
+"How do I save tokens when working with large files?"
+"My context is almost full, what do I do?"
+"Show me the proactive compaction schedule"
+"How do I write prompts that use fewer tokens?"
+```
+
+</details>
+
+---
+
+### 📋 Project & Leadership
+
+<details>
+<summary><strong>technical-writer</strong> — README · ADR · Runbook · OpenAPI · Changelog · Postmortem</summary>
+
+**Triggers on:** README, API docs, ADR, runbook, changelog, postmortem, onboarding guide, technical blog, JSDoc, TSDoc
+
+**What it knows:**
+- README templates (Quick Start, API Reference, Configuration, Contributing)
+- Architecture Decision Records (ADR) — captures *why*, not just *what*
+- Runbooks designed for incident response (fast to scan under pressure)
+- OpenAPI / Swagger documentation
+- Changelogs in Keep a Changelog format
+- Postmortem templates (timeline, root cause, action items)
+- JSDoc / TSDoc annotation patterns
+
+```bash
+"Write a README for my Next.js SaaS starter"
+"Create an ADR for switching from Mongoose to Prisma"
+"Write a runbook for database connection failures"
+"Generate a changelog for this release"
+"Write a postmortem for last night's outage"
+```
+
+</details>
+
+<details>
+<summary><strong>cto-advisor</strong> — Tech Strategy · Team Scaling · Build vs Buy · DORA Metrics · Engineering Culture</summary>
+
+**Triggers on:** technology strategy, engineering roadmap, build vs buy, technical debt, DORA metrics, team structure, engineering OKRs, hiring engineers, vendor evaluation, first 90 days as CTO
+
+**What it knows:**
+- Tech Radar (Adopt / Trial / Assess / Hold)
+- Build vs Buy decision framework
+- OKR templates for engineering teams
+- Technical debt classification matrix (2×2: impact vs effort)
+- DORA metrics benchmarks (elite, high, medium, low)
+- Team Topologies (stream-aligned, platform, enabling, complicated-subsystem)
+- Engineering hiring scorecard
+- First 90 days as CTO / tech lead playbook
+- Blameless postmortem culture
+- Vendor / platform evaluation template
+
+```bash
+"Should we build our own auth or use Auth0?"
+"Help me write engineering OKRs for next quarter"
+"How should I structure my engineering team as we go from 5 to 20 engineers?"
+"What are the DORA metrics and how do I measure them?"
+"Write a vendor evaluation for choosing between Supabase and PlanetScale"
+```
+
+</details>
+
+<details>
+<summary><strong>project-manager</strong> — Agile · Sprint Planning · Stakeholder Reports · Scope Management · Release Planning</summary>
+
+**Triggers on:** sprint planning, backlog grooming, user stories, retrospective, stakeholder update, scope creep, milestone planning, status report, release checklist, project kick-off
+
+**What it knows:**
+- Agile frameworks comparison (Scrum, Kanban, Shape Up, Dual-track)
+- User story format (As a / I want / So that + Acceptance Criteria + DoD)
+- Sprint planning template (capacity, velocity, backlog)
+- Sprint retrospective (Start / Stop / Continue)
+- Project kick-off document (RACI, milestones, risks, communication plan)
+- Weekly status report template
+- Scope change management (impact assessment + client templates)
+- Release planning checklist (engineering + product + process)
+
+```bash
+"Write a project kick-off document for our payments feature"
+"Help me structure this sprint retrospective"
+"A client wants to add a feature mid-sprint — how do I handle it?"
+"Write a weekly status report for our mobile app project"
+"Create a release checklist for our v2.0 launch"
+```
+
+</details>
+
+<details>
+<summary><strong>task-estimator</strong> — Story Points · Epic Breakdown · Sprint Capacity · Timeline Forecasting · Spike Templates</summary>
+
+**Triggers on:** estimation, story points, task breakdown, how long, timeline, sprint capacity, epic decomposition, T-shirt sizing, three-point estimation, Monte Carlo, spike
+
+**What it knows:**
+- Three-point estimation (Optimistic / Most Likely / Pessimistic)
+- Epic decomposition: vertical slicing (not horizontal)
+- Hidden work checklist (error states, tests, migrations, reviews)
+- Story point reference card (1–13, with wall-clock guidance)
+- Sprint capacity formula (70% effective capacity rule)
+- Timeline forecasting: velocity-based + Monte Carlo
+- Estimation bias detection (optimism bias, planning fallacy, novelty tax)
+- Stakeholder communication templates for estimates and bad news
+- Spike templates for de-risking unknowns
+
+```bash
+"Break down this 'user authentication' epic into stories and estimate it"
+"How long will it take to build a Stripe subscription billing system?"
+"We have 4 engineers for a 2-week sprint — what's our capacity?"
+"A stakeholder is asking when the feature will be done — help me answer"
+"This is too uncertain to estimate — write a spike for it"
 ```
 
 </details>
@@ -474,19 +659,30 @@ claude-setup/
 ├── ⚙️  setup.sh                    ← Main install script (macOS)
 ├── ⚙️  setup-linux.sh              ← Linux install script (Ubuntu/Debian)
 ├── ⚙️  install_skills.sh           ← Interactive skill selector
+├── ⚙️  install_hooks.sh            ← Efficiency hooks installer
 ├── ⚙️  doctor.sh                   ← Health check (like flutter doctor)
 ├── ⚙️  scaffold.sh                 ← Project scaffolding generator
 ├── ⚙️  update.sh                   ← Auto-update skills and configs
 ├── ⚙️  generate-env.sh             ← .env.example generator
 ├── ⚙️  universal-setup.sh          ← Multi-tool config copier
 ├── ⚙️  token-tracker.sh            ← Token & cost tracking utility
+├── ⚙️  export-for-web.sh          ← Export skills for claude.ai Web & Desktop
+├── 📄 WEB_DESKTOP_GUIDE.md        ← Guide for Web & Desktop skill setup
 │
-├── 🧠 skills/                     ← 36 Claude Code skills
+├── 🪝 hooks/                      ← Auto-run hooks for efficiency
+│   ├── compact-reminder.sh        ← /compact reminder at turns 20/40/60+
+│   └── auto-skill.sh              ← Suggest the right skill per file type
+│
+├── ⚙️  settings/
+│   └── efficiency.json            ← Optimal settings template
+│
+├── 🧠 skills/                     ← 42 Claude Code skills
 │   ├── react-native-expo/
 │   ├── flutter-dev/
 │   ├── nodejs-backend/
 │   ├── nextjs-frontend/
 │   ├── uiux-design/
+│   ├── ui-ux-pro-max/             ← Design intelligence (67 styles, 96 palettes, BM25 search)
 │   ├── devops-cicd/
 │   ├── upwork-freelancer/
 │   ├── fullstack-architecture/
@@ -496,7 +692,14 @@ claude-setup/
 │   ├── ai-integration/            ← NEW: LLM integration (RAG, Streaming, Claude API)
 │   ├── auth-patterns/             ← NEW: Auth (NextAuth, JWT, RBAC, OAuth)
 │   ├── token-tracker/             ← Token & cost tracking skill
+│   ├── token-optimizer/           ← Model selection, context mgmt, prompt efficiency
+│   ├── technical-writer/          ← README, ADR, runbook, postmortem, changelog
+│   ├── cto-advisor/               ← Tech strategy, team scaling, DORA metrics
+│   ├── project-manager/           ← Agile, sprint planning, stakeholder reports
+│   ├── task-estimator/            ← Story points, epic breakdown, timeline forecasting
 │   └── ... (22 more from community)
+│
+├── 📁 web-prompts/                ← Pre-exported skill prompts (run export-for-web.sh)
 │
 ├── 📁 templates/
 │   ├── github-actions/            ← CI/CD pipeline templates
@@ -568,7 +771,7 @@ Freelance:  Upwork · Project Management · Client Communication
 
 ## 🎯 Interactive Skill Selection
 
-Don't need all 36 skills? Pick only what you want:
+Don't need all 42 skills? Pick only what you want:
 
 ```bash
 # Interactive menu — choose by category
@@ -738,24 +941,48 @@ cp templates/github-actions/ci-nextjs.yml your-project/.github/workflows/ci.yml
 
 ## 📊 Token & Cost Tracking
 
-Track how many tokens each AI request uses and what it costs. Every user cares about this — now you can see it.
+Track how many tokens each AI request uses and what it costs — and actively reduce them.
+
+Two complementary skills:
+
+| Skill | Purpose |
+|-------|---------|
+| `token-tracker` | **Measure** — per-request cost, session totals, budget estimates |
+| `token-optimizer` | **Reduce** — model selection, context management, prompt efficiency |
+
+### Install both
+
+```bash
+./install_skills.sh --skill token-tracker
+./install_skills.sh --skill token-optimizer
+```
 
 ### Option 1: Claude Skill (Automatic)
 
-Install the `token-tracker` skill and ask Claude:
-
 ```bash
-# Install the skill
-./install_skills.sh --skill token-tracker
-
-# Then in any Claude Code session, just say:
+# Tracking — in any Claude Code session:
 "Enable token tracking"
 "How much did this request cost?"
 "Show me a session summary"
-"Compare costs across models"
+"Estimate my monthly cost for heavy use"
+
+# Optimization:
+"Which model should I use for this task?"
+"My context is almost full — what do I do?"
+"How do I write prompts that use fewer tokens?"
+"Show me the model selection guide"
 ```
 
-Claude will append token usage and cost estimates after every response.
+Claude will append token usage after every response and proactively suggest `/compact` when context gets long.
+
+### Built-in optimization (CLAUDE.md)
+
+The included `CLAUDE.md` encodes token-saving behaviors that are **always active** — no skill needed:
+- No preamble or filler phrases
+- Code over prose (show the diff, not the explanation)
+- Suggest `/compact` after major phases, `/clear` between tasks
+- Use subagents for file exploration (keeps main context clean)
+- Read files with line ranges, not entire files
 
 ### Option 2: Shell Utility (Manual tracking)
 
@@ -813,11 +1040,57 @@ cp .windsurfrules /your/project/     # Windsurf
 | AI Tool | Config File | Status |
 |---------|------------|--------|
 | **Claude Code** (priority) | `CLAUDE.md` + `~/.claude/skills/` | Full support (skills + config) |
+| **claude.ai Web** | Project Instructions | Full support (export-for-web.sh) |
+| **Claude Desktop** | Project Instructions | Full support (export-for-web.sh) |
 | **Cursor** | `.cursorrules` | Full support (coding standards) |
 | **Aider** | `.aider.conf.yml` | Full support (model + settings) |
 | **Windsurf** (Codeium) | `.windsurfrules` | Full support (coding standards) |
 
-> Claude Code is our **primary focus** — it gets the full skill system with 31 specialized skills. Other tools get the shared coding standards and project configuration.
+> Claude Code is our **primary focus** — it gets the full skill system with auto-triggering. Other tools get the shared coding standards. claude.ai Web and Desktop get the full skill knowledge via Project Instructions (see below).
+
+---
+
+## 🌐 Web & Desktop Support
+
+Skills work on **claude.ai** and **Claude Desktop** via Project Instructions. Export any skill (or a combination) as a ready-to-paste system prompt:
+
+```bash
+# Interactive picker — select skills by number
+./export-for-web.sh
+
+# Export a single skill (auto-copies to clipboard)
+./export-for-web.sh --skill flutter-dev
+
+# Export multiple skills into one combined prompt
+./export-for-web.sh --skill nextjs-developer --skill uiux-design --skill secure-code-guardian
+
+# Export all skills at once
+./export-for-web.sh --all
+
+# See what's available
+./export-for-web.sh --list
+```
+
+**Then paste into a Project:**
+
+1. **claude.ai** → Projects → ⚙ Settings → **Project Instructions** → paste → Save
+2. **Claude Desktop** → Projects → Edit → **Custom Instructions** → paste → Save
+
+Every conversation inside that Project will have the skill expertise active — no manual invocation needed.
+
+**Recommended Projects:**
+
+| Project | Skills |
+|---------|--------|
+| Mobile Dev | `react-native-expo` + `flutter-dev` |
+| Full-Stack Web | `nextjs-developer` + `nextjs-frontend` + `nodejs-backend` |
+| UI/UX | `uiux-design` + `ui-ux-pro-max` |
+| DevOps | `devops-cicd` + `devops-engineer` |
+| Code Quality | `code-reviewer` + `test-master` + `secure-code-guardian` |
+
+> **Note:** The `ui-ux-pro-max` skill uses a Python BM25 search engine that only runs in Claude Code CLI. On Web/Desktop, Claude uses the embedded knowledge instead — design planning still works, just without the live database search.
+
+See [WEB_DESKTOP_GUIDE.md](WEB_DESKTOP_GUIDE.md) for the full setup walkthrough.
 
 ---
 
@@ -838,6 +1111,9 @@ A: The script prints a warning and continues. Failed installs are logged so you 
 **Q: Where are the skills stored?**
 A: `~/.claude/skills/` — global to your user, active in every Claude Code session.
 
+**Q: Can I use the skills on claude.ai or the Claude Desktop app?**
+A: Yes. Run `./export-for-web.sh --skill <name>` to export a skill as a plain system prompt, then paste it into a Project's Instructions on claude.ai or Claude Desktop. See [WEB_DESKTOP_GUIDE.md](WEB_DESKTOP_GUIDE.md).
+
 **Q: How do I add my own skill?**
 A: Create `skills/my-skill/SKILL.md`, add a YAML frontmatter with `name` and `description`, then re-run `setup.sh`.
 
@@ -855,6 +1131,7 @@ Skills sourced from:
 - [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) — 66 community skills
 - [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) — Claude Code configs
 - [callstackincubator/agent-skills](https://github.com/callstackincubator/agent-skills) — React Native patterns
+- [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — Design intelligence skill (67 styles, 96 palettes, BM25 search engine)
 - [Anthropic Claude Code Docs](https://docs.claude.ai/claude-code) — Official skill format
 
 ---

@@ -361,7 +361,7 @@ if [ -d "${SCRIPT_DIR}/skills" ]; then
       skip "Skill: $skill_name"
     else
       mkdir -p "${SKILLS_DIR}/${skill_name}"
-      cp "${skill_dir}SKILL.md" "${SKILLS_DIR}/${skill_name}/SKILL.md"
+      cp -r "${skill_dir}." "${SKILLS_DIR}/${skill_name}/"
       ok "Skill installed: $skill_name"
     fi
   done
@@ -377,6 +377,14 @@ else
     cp "${SCRIPT_DIR}/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
     ok "~/.claude/CLAUDE.md created"
   fi
+fi
+
+# ── Hooks & Efficiency Settings ──────────────────────────────────────────
+if [ -f "${SCRIPT_DIR}/install_hooks.sh" ]; then
+  info "Installing efficiency hooks..."
+  bash "${SCRIPT_DIR}/install_hooks.sh" || warn "Hooks install had issues — run install_hooks.sh manually"
+else
+  warn "install_hooks.sh not found — skipping hooks setup"
 fi
 
 # ═══════════════════════════════════════════════════════════════

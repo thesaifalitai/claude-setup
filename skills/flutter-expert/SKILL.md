@@ -1,6 +1,6 @@
 ---
 name: flutter-expert
-description: Use when building cross-platform applications with Flutter 3+ and Dart. Invoke for widget development, Riverpod/Bloc state management, GoRouter navigation, platform-specific implementations, performance optimization.
+description: "Advanced Flutter architecture specialist. Use for Flutter architecture decisions, NOT standard Flutter implementation (use flutter-dev for that). Invoke for: Flutter clean architecture, feature-first project structure, advanced Riverpod patterns (Notifier/AsyncNotifier/family), advanced Bloc (Cubit vs Bloc tradeoffs, BlocObserver), Flutter performance profiling (DevTools, shader compilation, jank), custom RenderObject, platform channels/MethodChannel, multi-module monorepo, Flutter plugin authoring, isolates/compute(), build_runner code generation, get_it/injectable DI, Flutter 3.x upgrade migrations."
 license: MIT
 metadata:
   author: https://github.com/Jeffallan
