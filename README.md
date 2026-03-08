@@ -74,6 +74,29 @@ curl -fsSL https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/set
 
 > ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 42 skills installed.
 
+### Efficiency hooks (auto-installed by setup.sh)
+
+The setup script automatically installs two hooks + optimal settings:
+
+| Hook | What it does |
+|------|-------------|
+| `compact-reminder.sh` | Reminds you to `/compact` at turns 20, 40, 60+ — prevents context overflow |
+| `auto-skill.sh` | Detects the file type you're editing and suggests the right skill automatically |
+
+**Settings applied:**
+
+| Setting | Value | Benefit |
+|---------|-------|---------|
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | `50` | Auto-compacts at 50% context usage |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | `haiku` | Subagents use Haiku (3× cheaper) |
+| `MAX_THINKING_TOKENS` | `10000` | Caps internal reasoning (faster + focused) |
+
+To install hooks separately:
+
+```bash
+./install_hooks.sh
+```
+
 ---
 
 ## 📦 What Gets Installed
@@ -636,6 +659,7 @@ claude-setup/
 ├── ⚙️  setup.sh                    ← Main install script (macOS)
 ├── ⚙️  setup-linux.sh              ← Linux install script (Ubuntu/Debian)
 ├── ⚙️  install_skills.sh           ← Interactive skill selector
+├── ⚙️  install_hooks.sh            ← Efficiency hooks installer
 ├── ⚙️  doctor.sh                   ← Health check (like flutter doctor)
 ├── ⚙️  scaffold.sh                 ← Project scaffolding generator
 ├── ⚙️  update.sh                   ← Auto-update skills and configs
@@ -644,6 +668,13 @@ claude-setup/
 ├── ⚙️  token-tracker.sh            ← Token & cost tracking utility
 ├── ⚙️  export-for-web.sh          ← Export skills for claude.ai Web & Desktop
 ├── 📄 WEB_DESKTOP_GUIDE.md        ← Guide for Web & Desktop skill setup
+│
+├── 🪝 hooks/                      ← Auto-run hooks for efficiency
+│   ├── compact-reminder.sh        ← /compact reminder at turns 20/40/60+
+│   └── auto-skill.sh              ← Suggest the right skill per file type
+│
+├── ⚙️  settings/
+│   └── efficiency.json            ← Optimal settings template
 │
 ├── 🧠 skills/                     ← 42 Claude Code skills
 │   ├── react-native-expo/

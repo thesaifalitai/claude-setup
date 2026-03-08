@@ -379,6 +379,14 @@ else
   fi
 fi
 
+# ── Hooks & Efficiency Settings ──────────────────────────────────────────
+if [ -f "${SCRIPT_DIR}/install_hooks.sh" ]; then
+  info "Installing efficiency hooks..."
+  bash "${SCRIPT_DIR}/install_hooks.sh" || warn "Hooks install had issues — run install_hooks.sh manually"
+else
+  warn "install_hooks.sh not found — skipping hooks setup"
+fi
+
 # ═══════════════════════════════════════════════════════════════
 h1 "16. Flutter Doctor"
 # ═══════════════════════════════════════════════════════════════
