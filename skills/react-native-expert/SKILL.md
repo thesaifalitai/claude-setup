@@ -1,6 +1,6 @@
 ---
 name: react-native-expert
-description: Use when building cross-platform mobile applications with React Native or Expo. Invoke for navigation patterns, platform-specific code, native modules, FlatList optimization.
+description: "Bare React Native CLI specialist (non-Expo projects). Invoke for: React Native CLI setup, Turbo Modules/Fabric (new architecture), JSI bridging, custom native Android/iOS modules, React Navigation (not Expo Router), metro bundler config, React Native upgrade codemods, Hermes engine, native splash/icons without Expo, react-native-reanimated in bare workflow. For Expo-managed projects use react-native-expo instead."
 license: MIT
 metadata:
   author: https://github.com/Jeffallan

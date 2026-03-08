@@ -361,7 +361,7 @@ if [ -d "${SCRIPT_DIR}/skills" ]; then
       skip "Skill: $skill_name"
     else
       mkdir -p "${SKILLS_DIR}/${skill_name}"
-      cp "${skill_dir}SKILL.md" "${SKILLS_DIR}/${skill_name}/SKILL.md"
+      cp -r "${skill_dir}." "${SKILLS_DIR}/${skill_name}/"
       ok "Skill installed: $skill_name"
     fi
   done

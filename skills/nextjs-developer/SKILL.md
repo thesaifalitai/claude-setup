@@ -1,6 +1,6 @@
 ---
 name: nextjs-developer
-description: Use when building Next.js 14+ applications with App Router, server components, or server actions. Invoke for full-stack features, performance optimization, SEO implementation, production deployment.
+description: "Next.js 15+ full-stack specialist. Invoke for BACKEND concerns inside Next.js: Server Actions with mutations, Route Handlers/API routes, Next.js middleware (auth, redirects), fetch caching and revalidation strategies (revalidateTag/revalidatePath), PPR (Partial Pre-rendering), edge runtime, database queries from Server Components, ISR patterns, Next.js deployment to Vercel/Docker. For frontend UI/React component work use nextjs-frontend instead."
 license: MIT
 metadata:
   author: https://github.com/Jeffallan
