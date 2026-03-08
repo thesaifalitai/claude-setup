@@ -8,7 +8,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-purple?style=flat-square)](https://claude.ai/claude-code)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
 [![Linux](https://img.shields.io/badge/Linux-Ubuntu_%26_Debian-orange?style=flat-square&logo=linux)](setup-linux.sh)
-[![Skills](https://img.shields.io/badge/Skills-41_Installed-green?style=flat-square)](#-skills-reference)
+[![Skills](https://img.shields.io/badge/Skills-42_Installed-green?style=flat-square)](#-skills-reference)
 [![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
 [![Web & Desktop](https://img.shields.io/badge/Web_%26_Desktop-claude.ai_%7C_Desktop_App-indigo?style=flat-square)](#-web--desktop-support)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
@@ -28,11 +28,12 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 - ✅ **Smart install** — checks before installing, never duplicates
 - ✅ **Safe to re-run** — run anytime to add new tools or catch missing ones
-- ✅ **41 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **42 Claude AI skills** — auto-trigger the right expert for every task
 - ✅ **Interactive skill selector** — choose exactly what you need by category
 - ✅ **Health check (`./doctor.sh`)** — verify your entire dev environment like `flutter doctor`
 - ✅ **Project scaffolding** — generate Next.js, NestJS, Expo, Flutter, or fullstack monorepo projects
 - ✅ **Token & cost tracking** — see input/output tokens and cost per request
+- ✅ **Token optimizer** — built-in model selection, context management, and prompt efficiency to maximise every token
 - ✅ **Universal AI support** — works with Claude Code, Cursor, Aider, and Windsurf
 - ✅ **Web & Desktop support** — export skills as system prompts for claude.ai Projects and Claude Desktop
 - ✅ **Linux support** — Ubuntu, Debian, and derivatives
@@ -71,7 +72,7 @@ That's it. The script handles everything else — including skipping tools you a
 curl -fsSL https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/setup.sh | bash
 ```
 
-> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 37 skills installed.
+> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 42 skills installed.
 
 ---
 
@@ -420,18 +421,44 @@ GraphQL schema design + federation, microservices with service mesh, REST API Op
 **Triggers on:** token usage, API cost, token count, input/output tokens, billing, cost tracking, cost estimate
 
 **What it knows:**
-- Per-request token estimation (input + output)
-- Cost calculation for Claude Opus/Sonnet/Haiku
-- Cross-provider cost comparison (GPT-4o, Gemini, DeepSeek)
+- Per-request token estimation (input + output + context %)
+- Cost calculation for Claude Opus/Sonnet/Haiku with cache pricing
+- Cross-provider cost comparison (GPT-4o, Gemini 2.0, DeepSeek)
 - Session summaries with cumulative stats
-- Cost optimization tips
+- Context window usage tracker with /compact warnings
+- Daily / monthly budget estimator by use case
 
 ```bash
-# Example triggers
 "Enable token tracking"
 "How much did this request cost?"
 "Compare costs across Claude models"
 "Show me my session token usage summary"
+"Estimate my monthly cost if I use Claude 2 hours/day"
+```
+
+</details>
+
+<details>
+<summary><strong>token-optimizer</strong> — Active Token Saving & Context Efficiency</summary>
+
+**Triggers on:** save tokens, reduce cost, context window full, which model should I use, Haiku vs Sonnet vs Opus, when to compact, prompt is too long, Claude is getting slow
+
+**What it knows:**
+- Model selection guide — exact task → model mapping (Haiku / Sonnet / Opus)
+- When and how to use `/compact`, `/clear`, and subagents
+- Prompt engineering templates that eliminate wasted tokens
+- Context inclusion strategy (what to include vs exclude)
+- Subagent strategy to keep main context clean
+- Prompt caching patterns (90% input cost reduction)
+- Session efficiency checklist
+- Emergency context-full recovery procedure
+
+```bash
+"Which model should I use for code generation?"
+"How do I save tokens when working with large files?"
+"My context is almost full, what do I do?"
+"Show me the proactive compaction schedule"
+"How do I write prompts that use fewer tokens?"
 ```
 
 </details>
@@ -618,7 +645,7 @@ claude-setup/
 ├── ⚙️  export-for-web.sh          ← Export skills for claude.ai Web & Desktop
 ├── 📄 WEB_DESKTOP_GUIDE.md        ← Guide for Web & Desktop skill setup
 │
-├── 🧠 skills/                     ← 37 Claude Code skills
+├── 🧠 skills/                     ← 42 Claude Code skills
 │   ├── react-native-expo/
 │   ├── flutter-dev/
 │   ├── nodejs-backend/
@@ -634,6 +661,7 @@ claude-setup/
 │   ├── ai-integration/            ← NEW: LLM integration (RAG, Streaming, Claude API)
 │   ├── auth-patterns/             ← NEW: Auth (NextAuth, JWT, RBAC, OAuth)
 │   ├── token-tracker/             ← Token & cost tracking skill
+│   ├── token-optimizer/           ← Model selection, context mgmt, prompt efficiency
 │   ├── technical-writer/          ← README, ADR, runbook, postmortem, changelog
 │   ├── cto-advisor/               ← Tech strategy, team scaling, DORA metrics
 │   ├── project-manager/           ← Agile, sprint planning, stakeholder reports
@@ -712,7 +740,7 @@ Freelance:  Upwork · Project Management · Client Communication
 
 ## 🎯 Interactive Skill Selection
 
-Don't need all 37 skills? Pick only what you want:
+Don't need all 42 skills? Pick only what you want:
 
 ```bash
 # Interactive menu — choose by category
@@ -882,24 +910,48 @@ cp templates/github-actions/ci-nextjs.yml your-project/.github/workflows/ci.yml
 
 ## 📊 Token & Cost Tracking
 
-Track how many tokens each AI request uses and what it costs. Every user cares about this — now you can see it.
+Track how many tokens each AI request uses and what it costs — and actively reduce them.
+
+Two complementary skills:
+
+| Skill | Purpose |
+|-------|---------|
+| `token-tracker` | **Measure** — per-request cost, session totals, budget estimates |
+| `token-optimizer` | **Reduce** — model selection, context management, prompt efficiency |
+
+### Install both
+
+```bash
+./install_skills.sh --skill token-tracker
+./install_skills.sh --skill token-optimizer
+```
 
 ### Option 1: Claude Skill (Automatic)
 
-Install the `token-tracker` skill and ask Claude:
-
 ```bash
-# Install the skill
-./install_skills.sh --skill token-tracker
-
-# Then in any Claude Code session, just say:
+# Tracking — in any Claude Code session:
 "Enable token tracking"
 "How much did this request cost?"
 "Show me a session summary"
-"Compare costs across models"
+"Estimate my monthly cost for heavy use"
+
+# Optimization:
+"Which model should I use for this task?"
+"My context is almost full — what do I do?"
+"How do I write prompts that use fewer tokens?"
+"Show me the model selection guide"
 ```
 
-Claude will append token usage and cost estimates after every response.
+Claude will append token usage after every response and proactively suggest `/compact` when context gets long.
+
+### Built-in optimization (CLAUDE.md)
+
+The included `CLAUDE.md` encodes token-saving behaviors that are **always active** — no skill needed:
+- No preamble or filler phrases
+- Code over prose (show the diff, not the explanation)
+- Suggest `/compact` after major phases, `/clear` between tasks
+- Use subagents for file exploration (keeps main context clean)
+- Read files with line ranges, not entire files
 
 ### Option 2: Shell Utility (Manual tracking)
 

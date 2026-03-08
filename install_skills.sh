@@ -69,8 +69,9 @@ SKILL_CATEGORIES=(
   ["python-pro"]="languages"
   # Freelance
   ["upwork-freelancer"]="freelance"
-  # Token Tracking
+  # Token Tracking & Optimization
   ["token-tracker"]="utilities"
+  ["token-optimizer"]="utilities"
   # New skills (v1.2.0)
   ["supabase-expert"]="backend"
   ["stripe-expert"]="backend"
