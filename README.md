@@ -8,6 +8,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skills-purple?style=flat-square)](https://claude.ai/claude-code)
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
 [![Linux](https://img.shields.io/badge/Linux-Ubuntu_%26_Debian-orange?style=flat-square&logo=linux)](setup-linux.sh)
+[![Windows](https://img.shields.io/badge/Windows-10_%26_11-blue?style=flat-square&logo=windows)](setup-windows.ps1)
 [![Skills](https://img.shields.io/badge/Skills-42_Installed-green?style=flat-square)](#-skills-reference)
 [![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
 [![Web & Desktop](https://img.shields.io/badge/Web_%26_Desktop-claude.ai_%7C_Desktop_App-indigo?style=flat-square)](#-web--desktop-support)
@@ -47,7 +48,7 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 ## 🏃 Quick Start
 
-> **Requires:** macOS or Linux · Internet connection · ~15 min
+> **Requires:** macOS, Linux, or Windows · Internet connection · ~15 min
 
 ```bash
 # Clone the repo
@@ -60,19 +61,34 @@ chmod +x setup.sh && ./setup.sh
 # Linux (Ubuntu/Debian)
 chmod +x setup-linux.sh && ./setup-linux.sh
 
+# Windows (PowerShell — Run as Administrator)
+.\setup-windows.ps1
+
 # Verify your environment
 ./doctor.sh
 ```
 
 That's it. The script handles everything else — including skipping tools you already have.
 
-### One-line install (no clone needed)
+### Windows Setup Options
+
+```powershell
+.\setup-windows.ps1                    # Interactive — choose what to install
+.\setup-windows.ps1 --all              # Install everything (no prompts)
+.\setup-windows.ps1 --skills-only      # Only install Claude skills (no dev tools)
+.\setup-windows.ps1 --only node,git    # Install specific tools only
+.\setup-windows.ps1 --list             # Show available tools & install status
+```
+
+> **Note:** Windows script uses `winget` (built-in on Windows 10 1709+). For tools not in winget, it falls back to `npm` or `Chocolatey`.
+
+### One-line install (no clone needed — macOS/Linux only)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/setup.sh | bash
 ```
 
-> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 42 skills installed.
+> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 43 skills installed.
 
 ### Efficiency hooks (auto-installed by setup.sh)
 
@@ -658,6 +674,7 @@ claude-setup/
 ├── 📄 .windsurfrules              ← Windsurf AI config
 ├── ⚙️  setup.sh                    ← Main install script (macOS)
 ├── ⚙️  setup-linux.sh              ← Linux install script (Ubuntu/Debian)
+├── ⚙️  setup-windows.ps1           ← Windows install script (Win 10/11, PowerShell)
 ├── ⚙️  install_skills.sh           ← Interactive skill selector
 ├── ⚙️  install_hooks.sh            ← Efficiency hooks installer
 ├── ⚙️  doctor.sh                   ← Health check (like flutter doctor)
