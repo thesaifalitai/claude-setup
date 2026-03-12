@@ -764,7 +764,7 @@ Frontend:   React Native · Flutter · Next.js · React.js · Vue.js · TypeScri
 Backend:    Node.js · Python · Django · Laravel · NestJS · Express.js · FastAPI · GraphQL
 Databases:  MySQL · MongoDB · PostgreSQL · Pinecone
 Cloud:      AWS (Lambda, EC2, S3) · Docker · Kubernetes · Nginx · Firebase
-Freelance:  Upwork · Project Management · Client Communication
+Freelance:  Upwork · LinkedIn · Fiverr · Proposals · Cover Letters · Client Communication
 ```
 
 ---
@@ -786,9 +786,10 @@ Don't need all 42 skills? Pick only what you want:
 ./install_skills.sh --category frontend   # Next.js, Vue, TypeScript
 ./install_skills.sh --category devops     # Docker, K8s, AWS, CI/CD
 ./install_skills.sh --category quality    # Testing, reviews, security
-./install_skills.sh --category freelance  # Upwork proposals + comms
+./install_skills.sh --category freelance  # Upwork proposals + cover letters
 
 # Install a single skill
+./install_skills.sh --skill proposal-writer  # Just the proposal writer
 ./install_skills.sh --skill supabase-expert
 
 # Search for skills by keyword
@@ -802,7 +803,72 @@ Don't need all 42 skills? Pick only what you want:
 ./install_skills.sh --list
 ```
 
-**Categories available:** mobile, backend, frontend, uiux, devops, architecture, quality, languages, freelance, utilities
+**Categories available:** mobile, backend, frontend, uiux, devops, architecture, quality, languages, freelance, utilities, management
+
+---
+
+## 📦 Install Any Skill — Any OS
+
+Don't want the full repo? Grab **only the skills you need** with a single command.
+
+### Install a single skill (curl)
+
+Replace `SKILL_NAME` with any skill from the [skills list](#-skills-reference):
+
+**macOS / Linux / WSL / Git Bash:**
+```bash
+SKILL_NAME="proposal-writer"  # change to any skill name
+mkdir -p ~/.claude/skills/$SKILL_NAME
+curl -fsSL "https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/skills/$SKILL_NAME/SKILL.md" \
+  -o ~/.claude/skills/$SKILL_NAME/SKILL.md
+```
+
+**Windows (PowerShell):**
+```powershell
+$skill = "proposal-writer"  # change to any skill name
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\$skill"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/skills/$skill/SKILL.md" `
+  -OutFile "$env:USERPROFILE\.claude\skills\$skill\SKILL.md"
+```
+
+### Install multiple skills at once
+
+**macOS / Linux / WSL:**
+```bash
+for skill in proposal-writer upwork-freelancer supabase-expert; do
+  mkdir -p ~/.claude/skills/$skill
+  curl -fsSL "https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/skills/$skill/SKILL.md" \
+    -o ~/.claude/skills/$skill/SKILL.md
+  echo "installed: $skill"
+done
+```
+
+**Windows (PowerShell):**
+```powershell
+foreach ($skill in @("proposal-writer", "upwork-freelancer", "supabase-expert")) {
+  New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\$skill"
+  Invoke-WebRequest -Uri "https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/skills/$skill/SKILL.md" `
+    -OutFile "$env:USERPROFILE\.claude\skills\$skill\SKILL.md"
+  Write-Host "installed: $skill"
+}
+```
+
+### Manual install (any OS)
+1. Browse [skills/](skills/) folder on GitHub
+2. Open the skill folder you want
+3. Download `SKILL.md`
+4. Place it at `~/.claude/skills/<skill-name>/SKILL.md`
+
+> **No scripts, no dependencies** — each skill is a single `SKILL.md` file that works independently.
+
+### Where skills work
+
+| Platform | How |
+|----------|-----|
+| **Claude Code (CLI)** | Auto-detected from `~/.claude/skills/` |
+| **VS Code extension** | Auto-detected from `~/.claude/skills/` |
+| **Claude.ai Web** | Copy skill content into Settings > Custom Instructions |
+| **Claude Desktop App** | Copy skill content into Settings > Custom Instructions |
 
 ---
 
@@ -1103,7 +1169,7 @@ A: Yes. Every install is guarded by a check. Already-installed items print `⏭ 
 A: Yes. The script detects `arm64` vs `x86_64` and adjusts Homebrew paths accordingly.
 
 **Q: Can I use this on Linux / Windows?**
-A: Currently macOS only. Linux support is planned — PRs welcome!
+A: Full setup script is macOS + Linux. **Skills work on any OS** (Windows, macOS, Linux) — just copy the skill folder to `~/.claude/skills/`. Windows users can use PowerShell, WSL, or Git Bash (see install instructions above).
 
 **Q: What if a tool fails to install?**
 A: The script prints a warning and continues. Failed installs are logged so you can fix them manually.
