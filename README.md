@@ -434,6 +434,30 @@ GraphQL schema design + federation, microservices with service mesh, REST API Op
 
 </details>
 
+> **Just need proposals?** Install only the proposal-writer skill:
+>
+> **macOS / Linux:**
+> ```bash
+> git clone https://github.com/thesaifalitai/claude-setup.git
+> cd claude-setup && ./install_skills.sh --skill proposal-writer
+> ```
+>
+> **Windows (PowerShell):**
+> ```powershell
+> git clone https://github.com/thesaifalitai/claude-setup.git
+> mkdir -Force "$env:USERPROFILE\.claude\skills\proposal-writer"
+> Copy-Item "claude-setup\skills\proposal-writer\SKILL.md" "$env:USERPROFILE\.claude\skills\proposal-writer\SKILL.md"
+> ```
+>
+> **Windows (WSL / Git Bash):**
+> ```bash
+> git clone https://github.com/thesaifalitai/claude-setup.git
+> mkdir -p ~/.claude/skills/proposal-writer
+> cp claude-setup/skills/proposal-writer/SKILL.md ~/.claude/skills/proposal-writer/SKILL.md
+> ```
+>
+> **Manual (any OS):** Copy [skills/proposal-writer/SKILL.md](skills/proposal-writer/SKILL.md) to `~/.claude/skills/proposal-writer/SKILL.md`
+
 ---
 
 ### 🛠️ Utilities
@@ -764,7 +788,7 @@ Frontend:   React Native · Flutter · Next.js · React.js · Vue.js · TypeScri
 Backend:    Node.js · Python · Django · Laravel · NestJS · Express.js · FastAPI · GraphQL
 Databases:  MySQL · MongoDB · PostgreSQL · Pinecone
 Cloud:      AWS (Lambda, EC2, S3) · Docker · Kubernetes · Nginx · Firebase
-Freelance:  Upwork · Project Management · Client Communication
+Freelance:  Upwork · LinkedIn · Fiverr · Proposals · Cover Letters · Client Communication
 ```
 
 ---
@@ -786,9 +810,10 @@ Don't need all 42 skills? Pick only what you want:
 ./install_skills.sh --category frontend   # Next.js, Vue, TypeScript
 ./install_skills.sh --category devops     # Docker, K8s, AWS, CI/CD
 ./install_skills.sh --category quality    # Testing, reviews, security
-./install_skills.sh --category freelance  # Upwork proposals + comms
+./install_skills.sh --category freelance  # Upwork proposals + cover letters
 
 # Install a single skill
+./install_skills.sh --skill proposal-writer  # Just the proposal writer
 ./install_skills.sh --skill supabase-expert
 
 # Search for skills by keyword
@@ -1103,7 +1128,7 @@ A: Yes. Every install is guarded by a check. Already-installed items print `⏭ 
 A: Yes. The script detects `arm64` vs `x86_64` and adjusts Homebrew paths accordingly.
 
 **Q: Can I use this on Linux / Windows?**
-A: Currently macOS only. Linux support is planned — PRs welcome!
+A: Full setup script is macOS + Linux. **Skills work on any OS** (Windows, macOS, Linux) — just copy the skill folder to `~/.claude/skills/`. Windows users can use PowerShell, WSL, or Git Bash (see install instructions above).
 
 **Q: What if a tool fails to install?**
 A: The script prints a warning and continues. Failed installs are logged so you can fix them manually.
