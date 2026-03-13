@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Full Stack Freelancer — Auto Setup Script (Windows)
+    Full Stack Freelancer - Auto Setup Script (Windows)
 .DESCRIPTION
     Works on Windows 10/11 with PowerShell 5.1+
-    Skips anything already installed — safe to re-run anytime
+    Skips anything already installed - safe to re-run anytime
     Uses winget (built-in on Win 10 1709+) and optional Chocolatey
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1
@@ -26,7 +26,7 @@ $ErrorActionPreference = "Continue"
 
 # ─── Colors ──────────────────────────────────────────────────
 function Write-Ok    { param($msg) Write-Host "  ✅ $msg" -ForegroundColor Green }
-function Write-Skip  { param($msg) Write-Host "  ⏭  $msg — already installed" -ForegroundColor Yellow }
+function Write-Skip  { param($msg) Write-Host "  ⏭  $msg - already installed" -ForegroundColor Yellow }
 function Write-Info  { param($msg) Write-Host "  ℹ  $msg" -ForegroundColor Cyan }
 function Write-Warn  { param($msg) Write-Host "  ⚠  $msg" -ForegroundColor Yellow }
 function Write-Err   { param($msg) Write-Host "  ❌ $msg" -ForegroundColor Red }
@@ -57,11 +57,11 @@ $allTools = [ordered]@{
 # ─── Banner ──────────────────────────────────────────────────
 Write-Host ""
 Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║   Full Stack Freelancer — Windows Setup      ║" -ForegroundColor Cyan
-Write-Host "║   React Native • Flutter • Node • Next.js    ║" -ForegroundColor Cyan
+Write-Host "║   Full Stack Freelancer - Windows Setup      ║" -ForegroundColor Cyan
+Write-Host "║   React Native | Flutter | Node | Next.js    ║" -ForegroundColor Cyan
 Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host "  OS: Windows $([System.Environment]::OSVersion.Version.Major)"
-Write-Host "  Re-run anytime — skips what's already installed"
+Write-Host "  Re-run anytime - skips what's already installed"
 Write-Host ""
 
 # ─── List Mode ──────────────────────────────────────────────
@@ -87,7 +87,7 @@ if ($List) {
 $selectedTools = @{}
 
 if ($SkillsOnly) {
-    Write-Info "Skills-only mode — skipping tool installation"
+    Write-Info "Skills-only mode - skipping tool installation"
 }
 elseif ($Only.Count -gt 0) {
     foreach ($key in $Only) {
@@ -105,7 +105,7 @@ elseif ($All) {
     Write-Info "Installing all tools"
 }
 else {
-    # Interactive mode — user picks what they want
+    # Interactive mode - user picks what they want
     Write-Host "Select tools to install (Enter = skip, Y = install):" -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────" -ForegroundColor DarkGray
     Write-Host ""
@@ -126,7 +126,7 @@ else {
     }
 
     if ($selectedTools.Count -eq 0) {
-        Write-Info "No tools selected — skipping to skills installation"
+        Write-Info "No tools selected - skipping to skills installation"
     }
 }
 
@@ -141,7 +141,7 @@ function Install-WithWinget {
     param($wingetId, $name)
 
     if (-not (Test-CommandExists "winget")) {
-        Write-Err "winget not found — install App Installer from Microsoft Store"
+        Write-Err "winget not found - install App Installer from Microsoft Store"
         return $false
     }
 
@@ -151,7 +151,7 @@ function Install-WithWinget {
         Write-Ok "$name installed"
         return $true
     } catch {
-        Write-Warn "$name install failed — try manually: winget install $wingetId"
+        Write-Warn "$name install failed - try manually: winget install $wingetId"
         return $false
     }
 }
@@ -160,7 +160,7 @@ function Install-WithNpm {
     param($pkg, $name)
 
     if (-not (Test-CommandExists "npm")) {
-        Write-Warn "npm not found — install Node.js first, then re-run"
+        Write-Warn "npm not found - install Node.js first, then re-run"
         return $false
     }
 
@@ -170,7 +170,7 @@ function Install-WithNpm {
         Write-Ok "$name installed"
         return $true
     } catch {
-        Write-Warn "$name install failed — try: npm install -g $pkg"
+        Write-Warn "$name install failed - try: npm install -g $pkg"
         return $false
     }
 }
@@ -189,7 +189,7 @@ function Install-WithChoco {
         Write-Ok "$name installed"
         return $true
     } catch {
-        Write-Warn "$name install failed — try: choco install $chocoId"
+        Write-Warn "$name install failed - try: choco install $chocoId"
         return $false
     }
 }
@@ -227,7 +227,7 @@ if (-not $SkillsOnly -and $selectedTools.Count -gt 0) {
             Install-WithChoco -chocoId $tool.ChocoId -name $tool.Name | Out-Null
         }
         else {
-            Write-Warn "$($tool.Name) — no automatic installer available"
+            Write-Warn "$($tool.Name) - no automatic installer available"
         }
     }
 
@@ -275,7 +275,7 @@ if (Test-CommandExists "code") {
         }
     }
 } else {
-    Write-Warn "VS Code not found — extensions will install on next run"
+    Write-Warn "VS Code not found - extensions will install on next run"
 }
 
 # ═══════════════════════════════════════════════════════════════
@@ -292,7 +292,7 @@ if (Test-Path $vscodeUserDir) {
     if (Test-Path $settingsSrc) {
         $settingsDst = Join-Path $vscodeUserDir "settings.json"
         if (Test-Path $settingsDst) {
-            Write-Skip "VS Code settings.json (exists — not overwriting)"
+            Write-Skip "VS Code settings.json (exists - not overwriting)"
             Write-Info "To replace: Copy-Item '$settingsSrc' '$settingsDst'"
         } else {
             Copy-Item $settingsSrc $settingsDst
@@ -303,14 +303,14 @@ if (Test-Path $vscodeUserDir) {
     if (Test-Path $keybindingsSrc) {
         $keybindingsDst = Join-Path $vscodeUserDir "keybindings.json"
         if (Test-Path $keybindingsDst) {
-            Write-Skip "VS Code keybindings.json (exists — not overwriting)"
+            Write-Skip "VS Code keybindings.json (exists - not overwriting)"
         } else {
             Copy-Item $keybindingsSrc $keybindingsDst
             Write-Ok "VS Code keybindings.json applied"
         }
     }
 } else {
-    Write-Info "VS Code settings directory not found — will apply next run"
+    Write-Info "VS Code settings directory not found - will apply next run"
 }
 
 # ═══════════════════════════════════════════════════════════════
@@ -360,7 +360,7 @@ if (Test-CommandExists "flutter") {
     Write-Info "Running flutter doctor..."
     flutter doctor 2>$null
 } else {
-    Write-Warn "Flutter not installed — skipping flutter doctor"
+    Write-Warn "Flutter not installed - skipping flutter doctor"
 }
 
 # ════════════════════════════════════════════════════════════════
@@ -375,7 +375,7 @@ Write-Host "Next steps:" -ForegroundColor White
 if (-not (Test-CommandExists "claude")) {
     Write-Host "  1. Open a new PowerShell window, then run: claude auth login" -ForegroundColor Yellow
 } else {
-    Write-Host "  1. Claude is installed → run: claude" -ForegroundColor Green
+    Write-Host "  1. Claude is installed -> run: claude" -ForegroundColor Green
 }
 
 if (-not (Test-CommandExists "flutter")) {
@@ -398,7 +398,7 @@ if (Test-CommandExists "gh") {
 }
 
 Write-Host ""
-Write-Host "  Re-run this script anytime — it will skip already-installed items." -ForegroundColor White
+Write-Host "  Re-run this script anytime - it will skip already-installed items." -ForegroundColor White
 Write-Host ""
 Write-Host "Usage:" -ForegroundColor DarkGray
 Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1                    # Interactive" -ForegroundColor DarkGray
