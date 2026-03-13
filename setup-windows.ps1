@@ -265,14 +265,29 @@ if (Test-CommandExists "code") {
     )
 
     $installed = code --list-extensions 2>$null
+    $toInstall = @()
     foreach ($ext in $extensions) {
         if ($installed -match "(?i)^$([regex]::Escape($ext))$") {
             Write-Skip "VS Code: $ext"
         } else {
-            Write-Info "Installing: $ext"
-            code --install-extension $ext --force 2>$null | Out-Null
+            $toInstall += $ext
+        }
+    }
+
+    if ($toInstall.Count -gt 0) {
+        # Build a single command with all extensions to avoid VS Code reopening per extension
+        $args = @()
+        foreach ($ext in $toInstall) {
+            $args += "--install-extension"
+            $args += $ext
+        }
+        Write-Info "Installing $($toInstall.Count) VS Code extensions (one batch)..."
+        & code @args --force 2>$null | Out-Null
+        foreach ($ext in $toInstall) {
             Write-Ok $ext
         }
+    } else {
+        Write-Info "All VS Code extensions already installed"
     }
 } else {
     Write-Warn "VS Code not found - extensions will install on next run"
