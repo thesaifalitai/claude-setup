@@ -24,18 +24,18 @@ param(
 
 $ErrorActionPreference = "Continue"
 
-# ─── Colors ──────────────────────────────────────────────────
-function Write-Ok    { param($msg) Write-Host "  ✅ $msg" -ForegroundColor Green }
-function Write-Skip  { param($msg) Write-Host "  ⏭  $msg - already installed" -ForegroundColor Yellow }
-function Write-Info  { param($msg) Write-Host "  ℹ  $msg" -ForegroundColor Cyan }
-function Write-Warn  { param($msg) Write-Host "  ⚠  $msg" -ForegroundColor Yellow }
-function Write-Err   { param($msg) Write-Host "  ❌ $msg" -ForegroundColor Red }
-function Write-H1    { param($msg) Write-Host "`n━━━ $msg ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Blue }
+# --- Colors ---------------------------------------------------------------
+function Write-Ok    { param($msg) Write-Host "  [OK]   $msg" -ForegroundColor Green }
+function Write-Skip  { param($msg) Write-Host "  [SKIP] $msg - already installed" -ForegroundColor Yellow }
+function Write-Info  { param($msg) Write-Host "  [i]    $msg" -ForegroundColor Cyan }
+function Write-Warn  { param($msg) Write-Host "  [!]    $msg" -ForegroundColor Yellow }
+function Write-Err   { param($msg) Write-Host "  [X]    $msg" -ForegroundColor Red }
+function Write-H1    { param($msg) Write-Host "`n=== $msg ========================================" -ForegroundColor Blue }
 
-# ─── Admin Check ─────────────────────────────────────────────
+# --- Admin Check ----------------------------------------------------------
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-# ─── Tool Selection ──────────────────────────────────────────
+# --- Tool Selection -------------------------------------------------------
 $allTools = [ordered]@{
     "git"         = @{ Name = "Git"; WingetId = "Git.Git"; Cmd = "git" }
     "gh"          = @{ Name = "GitHub CLI"; WingetId = "GitHub.cli"; Cmd = "gh" }
@@ -54,23 +54,23 @@ $allTools = [ordered]@{
     "eas"         = @{ Name = "EAS CLI (Expo)"; WingetId = $null; NpmPkg = "eas-cli"; Cmd = "eas" }
 }
 
-# ─── Banner ──────────────────────────────────────────────────
+# --- Banner ---------------------------------------------------------------
 Write-Host ""
-Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║   Full Stack Freelancer - Windows Setup      ║" -ForegroundColor Cyan
-Write-Host "║   React Native | Flutter | Node | Next.js    ║" -ForegroundColor Cyan
-Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "+----------------------------------------------+" -ForegroundColor Cyan
+Write-Host "|   Full Stack Freelancer - Windows Setup      |" -ForegroundColor Cyan
+Write-Host "|   React Native | Flutter | Node | Next.js    |" -ForegroundColor Cyan
+Write-Host "+----------------------------------------------+" -ForegroundColor Cyan
 Write-Host "  OS: Windows $([System.Environment]::OSVersion.Version.Major)"
 Write-Host "  Re-run anytime - skips what's already installed"
 Write-Host ""
 
-# ─── List Mode ──────────────────────────────────────────────
+# --- List Mode ------------------------------------------------------------
 if ($List) {
     Write-Host "`nAvailable tools:" -ForegroundColor Cyan
-    Write-Host "────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "----------------------------------------" -ForegroundColor DarkGray
     foreach ($key in $allTools.Keys) {
         $tool = $allTools[$key]
-        $installed = if (Get-Command $tool.Cmd -ErrorAction SilentlyContinue) { "✅" } else { "  " }
+        $installed = if (Get-Command $tool.Cmd -ErrorAction SilentlyContinue) { "[OK]" } else { "    " }
         Write-Host "  $installed $($key.PadRight(15)) $($tool.Name)"
     }
     Write-Host "`nUsage:" -ForegroundColor Yellow
@@ -83,7 +83,7 @@ if ($List) {
     exit 0
 }
 
-# ─── Interactive Selection ───────────────────────────────────
+# --- Interactive Selection ------------------------------------------------
 $selectedTools = @{}
 
 if ($SkillsOnly) {
@@ -107,7 +107,7 @@ elseif ($All) {
 else {
     # Interactive mode - user picks what they want
     Write-Host "Select tools to install (Enter = skip, Y = install):" -ForegroundColor Cyan
-    Write-Host "────────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "----------------------------------------------------" -ForegroundColor DarkGray
     Write-Host ""
 
     foreach ($key in $allTools.Keys) {
@@ -130,7 +130,7 @@ else {
     }
 }
 
-# ─── Helpers ─────────────────────────────────────────────────
+# --- Helpers --------------------------------------------------------------
 
 function Test-CommandExists {
     param($cmd)
@@ -194,7 +194,7 @@ function Install-WithChoco {
     }
 }
 
-# ─── Install Selected Tools ─────────────────────────────────
+# --- Install Selected Tools -----------------------------------------------
 
 if (-not $SkillsOnly -and $selectedTools.Count -gt 0) {
 
@@ -235,9 +235,9 @@ if (-not $SkillsOnly -and $selectedTools.Count -gt 0) {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
 
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 Write-H1 "VS Code Extensions"
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 
 if (Test-CommandExists "code") {
     $extensions = @(
@@ -278,9 +278,9 @@ if (Test-CommandExists "code") {
     Write-Warn "VS Code not found - extensions will install on next run"
 }
 
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 Write-H1 "VS Code Settings"
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 
 $vscodeUserDir = "$env:APPDATA\Code\User"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -313,9 +313,9 @@ if (Test-Path $vscodeUserDir) {
     Write-Info "VS Code settings directory not found - will apply next run"
 }
 
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 Write-H1 "Claude Skills & Config"
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 
 $claudeDir = "$env:USERPROFILE\.claude"
 $skillsDir = "$claudeDir\skills"
@@ -352,9 +352,9 @@ if (Test-Path $claudeMd) {
     Write-Ok "~\.claude\CLAUDE.md created"
 }
 
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 Write-H1 "Flutter Doctor"
-# ═══════════════════════════════════════════════════════════════
+# ===========================================================================
 
 if (Test-CommandExists "flutter") {
     Write-Info "Running flutter doctor..."
@@ -363,11 +363,11 @@ if (Test-CommandExists "flutter") {
     Write-Warn "Flutter not installed - skipping flutter doctor"
 }
 
-# ════════════════════════════════════════════════════════════════
+# ===========================================================================
 Write-Host ""
-Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Green
-Write-Host "║   ✅  Setup Complete!                        ║" -ForegroundColor Green
-Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Green
+Write-Host "+----------------------------------------------+" -ForegroundColor Green
+Write-Host "|   Setup Complete!                            |" -ForegroundColor Green
+Write-Host "+----------------------------------------------+" -ForegroundColor Green
 Write-Host ""
 
 Write-Host "Next steps:" -ForegroundColor White
