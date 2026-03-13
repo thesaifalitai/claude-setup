@@ -62,7 +62,7 @@ chmod +x setup.sh && ./setup.sh
 chmod +x setup-linux.sh && ./setup-linux.sh
 
 # Windows (PowerShell — Run as Administrator)
-.\setup-windows.ps1
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1
 
 # Verify your environment
 ./doctor.sh
@@ -73,14 +73,15 @@ That's it. The script handles everything else — including skipping tools you a
 ### Windows Setup Options
 
 ```powershell
-.\setup-windows.ps1                    # Interactive — choose what to install
-.\setup-windows.ps1 --all              # Install everything (no prompts)
-.\setup-windows.ps1 --skills-only      # Only install Claude skills (no dev tools)
-.\setup-windows.ps1 --only node,git    # Install specific tools only
-.\setup-windows.ps1 --list             # Show available tools & install status
+# All commands use -ExecutionPolicy Bypass to avoid signing errors
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1                    # Interactive — choose what to install
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -All               # Install everything (no prompts)
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -SkillsOnly        # Only install Claude skills (no dev tools)
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -Only node,git     # Install specific tools only
+powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -List              # Show available tools & install status
 ```
 
-> **Note:** Windows script uses `winget` (built-in on Windows 10 1709+). For tools not in winget, it falls back to `npm` or `Chocolatey`.
+> **Note:** Windows script uses `winget` (built-in on Windows 10 1709+). For tools not in winget, it falls back to `npm` or `Chocolatey`. The `-ExecutionPolicy Bypass` flag is needed because unsigned scripts are blocked by default on Windows.
 
 ### One-line install (no clone needed — macOS/Linux only)
 

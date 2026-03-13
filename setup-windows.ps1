@@ -1,11 +1,26 @@
-# ============================================================
-#  Full Stack Freelancer — Auto Setup Script (Windows)
-#  Works on Windows 10/11 with PowerShell 5.1+
-#  Skips anything already installed — safe to re-run anytime
-#  Uses winget (built-in on Win 10 1709+) and optional Chocolatey
-# ============================================================
+<#
+.SYNOPSIS
+    Full Stack Freelancer — Auto Setup Script (Windows)
+.DESCRIPTION
+    Works on Windows 10/11 with PowerShell 5.1+
+    Skips anything already installed — safe to re-run anytime
+    Uses winget (built-in on Win 10 1709+) and optional Chocolatey
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1
+    powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -All
+    powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -SkillsOnly
+    powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -Only node,git
+    powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -List
+#>
 
 #Requires -Version 5.1
+
+param(
+    [switch]$All,
+    [switch]$SkillsOnly,
+    [string[]]$Only,
+    [switch]$List
+)
 
 $ErrorActionPreference = "Continue"
 
@@ -49,26 +64,7 @@ Write-Host "  OS: Windows $([System.Environment]::OSVersion.Version.Major)"
 Write-Host "  Re-run anytime — skips what's already installed"
 Write-Host ""
 
-# ─── Mode Selection ──────────────────────────────────────────
-param(
-    [switch]$All,
-    [switch]$SkillsOnly,
-    [string[]]$Only,
-    [switch]$List
-)
-
-# Parse args from command line if not using param
-if ($args -contains "--all")         { $All = $true }
-if ($args -contains "--skills-only") { $SkillsOnly = $true }
-if ($args -contains "--list")        { $List = $true }
-
-# Handle --only tool1,tool2
-for ($i = 0; $i -lt $args.Count; $i++) {
-    if ($args[$i] -eq "--only" -and ($i + 1) -lt $args.Count) {
-        $Only = $args[$i + 1] -split ","
-    }
-}
-
+# ─── List Mode ──────────────────────────────────────────────
 if ($List) {
     Write-Host "`nAvailable tools:" -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────" -ForegroundColor DarkGray
@@ -78,11 +74,11 @@ if ($List) {
         Write-Host "  $installed $($key.PadRight(15)) $($tool.Name)"
     }
     Write-Host "`nUsage:" -ForegroundColor Yellow
-    Write-Host "  .\setup-windows.ps1                    # Interactive — choose what to install"
-    Write-Host "  .\setup-windows.ps1 --all              # Install everything"
-    Write-Host "  .\setup-windows.ps1 --skills-only      # Install only Claude skills"
-    Write-Host "  .\setup-windows.ps1 --only node,git    # Install specific tools only"
-    Write-Host "  .\setup-windows.ps1 --list             # Show this list"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1                    # Interactive"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -All               # Everything"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -SkillsOnly        # Skills only"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -Only node,git     # Specific tools"
+    Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -List              # This list"
     Write-Host ""
     exit 0
 }
@@ -109,7 +105,7 @@ elseif ($All) {
     Write-Info "Installing all tools"
 }
 else {
-    # Interactive mode
+    # Interactive mode — user picks what they want
     Write-Host "Select tools to install (Enter = skip, Y = install):" -ForegroundColor Cyan
     Write-Host "────────────────────────────────────────────────────" -ForegroundColor DarkGray
     Write-Host ""
@@ -206,7 +202,7 @@ if (-not $SkillsOnly -and $selectedTools.Count -gt 0) {
     if (-not (Test-CommandExists "winget")) {
         Write-Err "winget is required but not found."
         Write-Info "Install 'App Installer' from Microsoft Store, then re-run."
-        Write-Info "Or install tools manually and re-run with --skills-only"
+        Write-Info "Or install tools manually and re-run with -SkillsOnly"
     }
 
     Write-H1 "Installing Tools"
@@ -405,9 +401,9 @@ Write-Host ""
 Write-Host "  Re-run this script anytime — it will skip already-installed items." -ForegroundColor White
 Write-Host ""
 Write-Host "Usage:" -ForegroundColor DarkGray
-Write-Host "  .\setup-windows.ps1                    # Interactive mode" -ForegroundColor DarkGray
-Write-Host "  .\setup-windows.ps1 --all              # Install everything" -ForegroundColor DarkGray
-Write-Host "  .\setup-windows.ps1 --skills-only      # Only Claude skills" -ForegroundColor DarkGray
-Write-Host "  .\setup-windows.ps1 --only node,git    # Specific tools only" -ForegroundColor DarkGray
-Write-Host "  .\setup-windows.ps1 --list             # Show available tools" -ForegroundColor DarkGray
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1                    # Interactive" -ForegroundColor DarkGray
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -All               # Everything" -ForegroundColor DarkGray
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -SkillsOnly        # Skills only" -ForegroundColor DarkGray
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -Only node,git     # Specific tools" -ForegroundColor DarkGray
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -List              # Show tools" -ForegroundColor DarkGray
 Write-Host ""
