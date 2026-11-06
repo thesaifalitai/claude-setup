@@ -6,6 +6,9 @@ description: >
   invoicing, billing portals, pricing tables, metered billing, SaaS billing,
   payment processing, credit card handling, or Stripe Elements.
   This includes both one-time payments and recurring subscriptions.
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Stripe Expert

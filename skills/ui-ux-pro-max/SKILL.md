@@ -1,6 +1,9 @@
 ---
 name: ui-ux-pro-max
 description: "Design PLANNING and DISCOVERY specialist — use before writing any code. Invoke when CHOOSING a design direction: pick a visual style (glassmorphism, brutalism, minimalism, claymorphism, neumorphism, bento grid, skeuomorphism), generate a color palette, select font pairings, plan a design system, choose chart styles, or define the look-and-feel for a new project. Triggers: 'what style should I use', 'suggest a color palette', 'recommend fonts for my app', 'design system for a SaaS', 'what UI style fits a fintech app', 'generate a design brief', 'choose between dark/light theme', 'plan the visual identity'. Covers 50 styles, 97 palettes, 57 font pairings across React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui stacks. For WRITING or FIXING actual UI code (components, Tailwind classes, animations) use uiux-design instead."
+license: MIT
+metadata:
+  author: https://github.com/nextlevelbuilder
 ---
 
 # UI/UX Pro Max - Design Intelligence

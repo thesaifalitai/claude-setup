@@ -56,7 +56,7 @@ jobs:
             echo "$ERRORS skill(s) missing SKILL.md"
             exit 1
           fi
-          echo "All $(ls skills/ | wc -l | tr -d ' ') skills valid"
+          echo "All $(find skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ') skills valid"
 
       - name: Check SKILL.md frontmatter has name and description
         run: |
@@ -80,9 +80,9 @@ jobs:
 
       - name: Count and report skills
         run: |
-          COUNT=$(ls skills/ | wc -l | tr -d ' ')
+          COUNT=$(find skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
           echo "📦 Total skills: $COUNT"
-          ls skills/ | sed 's/^/  - /'
+          find skills -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | sed 's/^/  - /'
 
   # ─── 3. Validate VS Code config JSON ───────────────────────
   validate-vscode:

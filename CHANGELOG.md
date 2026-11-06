@@ -6,6 +6,26 @@ Format: [Semantic Versioning](https://semver.org/) — `MAJOR.MINOR.PATCH`
 
 ---
 
+## [Unreleased] - 2026-11-06
+
+### Changed
+- Skill count corrected to 41 everywhere (README badge, feature list, install note, repo tree, skills index)
+- Skills index now lists all 41 skills with their source
+- CI counts skill directories only, so `skills/README.md` no longer inflates the total
+
+### Added
+- `metadata.author` and `license` frontmatter on the 14 skills that were missing them
+- Skill Authorship table in the README: 19 original, 22 adapted
+- `THIRD_PARTY_NOTICES.md` with upstream MIT license texts
+
+### Fixed
+- Company name in `LICENSE`
+
+### Removed
+- `GITHUB_PUSH.md` and `INSTALL_STATUS.md` (one-off setup notes)
+
+---
+
 ## [1.0.0] — 2026-02-27
 
 ### 🎉 Initial Release

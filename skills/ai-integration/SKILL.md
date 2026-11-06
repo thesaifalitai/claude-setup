@@ -6,6 +6,9 @@ description: >
   LangChain, AI SDK (Vercel), text generation, chat completions, streaming responses,
   prompt engineering, function calling, tool use, AI agents, semantic search,
   Pinecone, ChromaDB, pgvector, or any LLM-related development task.
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # AI Integration Expert

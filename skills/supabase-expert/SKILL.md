@@ -6,6 +6,9 @@ description: >
   PostgreSQL policies, Supabase CLI, self-hosted Supabase, database migrations,
   or Firebase-to-Supabase migration. This includes schema design, RLS policies,
   Edge Functions (Deno), auth flows, file uploads, and realtime subscriptions.
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Supabase Expert

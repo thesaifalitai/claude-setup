@@ -8,6 +8,9 @@ description: >
   rate limiting, backend security, server deployment, or server-side TypeScript.
   Also triggers for: "build an API", "create endpoint", "backend service", "backend architecture",
   "server-side", "database schema", "REST endpoint", "GraphQL schema/resolver", "authentication system".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Node.js Backend Expert

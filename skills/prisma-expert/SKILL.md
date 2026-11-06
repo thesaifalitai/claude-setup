@@ -5,6 +5,9 @@ description: >
   Prisma Studio, database schema design, database relations, SQL queries via Prisma,
   database seeding, connection pooling, Prisma with PostgreSQL/MySQL/MongoDB/SQLite,
   or any ORM-related task in a Node.js/TypeScript project.
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Prisma Expert

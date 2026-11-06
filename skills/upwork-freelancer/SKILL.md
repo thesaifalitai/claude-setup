@@ -9,6 +9,9 @@ description: >
   Also triggers for: "write a proposal", "reply to client", "Upwork bid", "freelance proposal",
   "client message", "project quote", "scope of work", "follow up with client",
   "client is ghosting", "request review", "upwork job".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Upwork Freelancer Expert

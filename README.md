@@ -9,7 +9,7 @@
 [![macOS](https://img.shields.io/badge/macOS-Apple_Silicon_%26_Intel-black?style=flat-square&logo=apple)](setup.sh)
 [![Linux](https://img.shields.io/badge/Linux-Ubuntu_%26_Debian-orange?style=flat-square&logo=linux)](setup-linux.sh)
 [![Windows](https://img.shields.io/badge/Windows-10_%26_11-blue?style=flat-square&logo=windows)](setup-windows.ps1)
-[![Skills](https://img.shields.io/badge/Skills-42_Installed-green?style=flat-square)](#-skills-reference)
+[![Skills](https://img.shields.io/badge/Skills-41_Included-green?style=flat-square)](#-skills-reference)
 [![Universal](https://img.shields.io/badge/Universal-Claude_|_Cursor_|_Aider_|_Windsurf-blue?style=flat-square)](#-universal-ai-tool-support)
 [![Web & Desktop](https://img.shields.io/badge/Web_%26_Desktop-claude.ai_%7C_Desktop_App-indigo?style=flat-square)](#-web--desktop-support)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
@@ -29,7 +29,7 @@ Setting up a new Mac for full-stack freelance work takes hours — installing Fl
 
 - ✅ **Smart install** — checks before installing, never duplicates
 - ✅ **Safe to re-run** — run anytime to add new tools or catch missing ones
-- ✅ **42 Claude AI skills** — auto-trigger the right expert for every task
+- ✅ **41 Claude AI skills** — auto-trigger the right expert for every task
 - ✅ **Interactive skill selector** — choose exactly what you need by category
 - ✅ **Health check (`./doctor.sh`)** — verify your entire dev environment like `flutter doctor`
 - ✅ **Project scaffolding** — generate Next.js, NestJS, Expo, Flutter, or fullstack monorepo projects
@@ -89,7 +89,7 @@ powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -List              
 curl -fsSL https://raw.githubusercontent.com/thesaifalitai/claude-setup/main/setup.sh | bash
 ```
 
-> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 43 skills installed.
+> ⚠️ The one-liner won't copy skills locally. Use the `git clone` method to get all 41 skills installed.
 
 ### Efficiency hooks (auto-installed by setup.sh)
 
@@ -668,6 +668,7 @@ claude-setup/
 ├── 📄 CHANGELOG.md                ← Version history
 ├── 📄 RECOMMENDED_SKILLS.md       ← Voted skills roadmap
 ├── 📄 LICENSE                     ← MIT License
+├── 📄 THIRD_PARTY_NOTICES.md      ← Upstream licenses for adapted skills
 ├── 📄 .gitignore
 ├── 📄 CLAUDE.md                   ← Global Claude coding rules
 ├── 📄 .cursorrules                ← Cursor AI config
@@ -694,7 +695,7 @@ claude-setup/
 ├── ⚙️  settings/
 │   └── efficiency.json            ← Optimal settings template
 │
-├── 🧠 skills/                     ← 42 Claude Code skills
+├── 🧠 skills/                     ← 41 Claude Code skills
 │   ├── react-native-expo/
 │   ├── flutter-dev/
 │   ├── nodejs-backend/
@@ -715,7 +716,7 @@ claude-setup/
 │   ├── cto-advisor/               ← Tech strategy, team scaling, DORA metrics
 │   ├── project-manager/           ← Agile, sprint planning, stakeholder reports
 │   ├── task-estimator/            ← Story points, epic breakdown, timeline forecasting
-│   └── ... (22 more from community)
+│   └── ... (21 more - see Skill Authorship)
 │
 ├── 📁 web-prompts/                ← Pre-exported skill prompts (run export-for-web.sh)
 │
@@ -789,7 +790,7 @@ Freelance:  Upwork · LinkedIn · Fiverr · Proposals · Cover Letters · Client
 
 ## 🎯 Interactive Skill Selection
 
-Don't need all 42 skills? Pick only what you want:
+Don't need all 41 skills? Pick only what you want:
 
 ```bash
 # Interactive menu — choose by category
@@ -1199,20 +1200,34 @@ A: `~/.claude/skills/` — global to your user, active in every Claude Code sess
 A: Yes. Run `./export-for-web.sh --skill <name>` to export a skill as a plain system prompt, then paste it into a Project's Instructions on claude.ai or Claude Desktop. See [WEB_DESKTOP_GUIDE.md](WEB_DESKTOP_GUIDE.md).
 
 **Q: How do I add my own skill?**
-A: Create `skills/my-skill/SKILL.md`, add a YAML frontmatter with `name` and `description`, then re-run `setup.sh`.
+A: Create `skills/my-skill/SKILL.md`, add a YAML frontmatter with `name`, `description`, `license` and `metadata.author`, then re-run `setup.sh`.
+
+---
+
+## 🧾 Skill Authorship
+
+Of the 41 skills, 19 were written for this repo and 22 are adapted from MIT-licensed open-source projects. Every `SKILL.md` names its author in the `metadata.author` frontmatter field.
+
+| Source | Count | Skills |
+|--------|-------|--------|
+| Original ([thesaifalitai](https://github.com/thesaifalitai)) | 19 | ai-integration, auth-patterns, cto-advisor, devops-cicd, flutter-dev, fullstack-architecture, nextjs-frontend, nodejs-backend, prisma-expert, project-manager, react-native-expo, stripe-expert, supabase-expert, task-estimator, technical-writer, token-optimizer, token-tracker, uiux-design, upwork-freelancer |
+| Adapted from [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) | 21 | api-designer, cloud-architect, code-reviewer, debugging-wizard, devops-engineer, django-expert, fastapi-expert, feature-forge, flutter-expert, graphql-architect, kubernetes-specialist, laravel-specialist, microservices-architect, nestjs-expert, nextjs-developer, python-pro, react-native-expert, secure-code-guardian, test-master, typescript-pro, vue-expert |
+| Adapted from [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 1 | ui-ux-pro-max |
+
+Upstream license notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---
 
 ## 📜 License
 
-MIT — free to use, modify, and share. See [LICENSE](LICENSE).
+MIT - free to use, modify, and share. See [LICENSE](LICENSE). Adapted skills keep their original MIT notices in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---
 
 ## 🙏 Credits
 
-Skills sourced from:
-- [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) — 66 community skills
+Skills and ideas sourced from:
+- [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) - 21 skills adapted
 - [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) — Claude Code configs
 - [callstackincubator/agent-skills](https://github.com/callstackincubator/agent-skills) — React Native patterns
 - [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) — Design intelligence skill (67 styles, 96 palettes, BM25 search engine)

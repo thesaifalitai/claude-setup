@@ -9,6 +9,9 @@ description: >
   internationalization (i18n), or deploying to Vercel/Netlify.
   Also triggers for: "build a website", "create a web app", "Next.js project", "React page",
   "Vue component", "frontend architecture", "landing page", "dashboard UI".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Next.js / React / Vue Frontend Expert

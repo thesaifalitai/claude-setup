@@ -10,6 +10,9 @@ description: >
   Also triggers for: "architect this system", "how should I structure", "new project setup",
   "database design", "API design", "system design interview", "scale this app",
   "tech stack recommendation", "monorepo setup", "multi-tenant SaaS".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Full Stack Architecture Expert

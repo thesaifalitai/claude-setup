@@ -9,6 +9,9 @@ description: >
   blue-green deployments, or infrastructure as code (Terraform/CDK).
   Also triggers for: "deploy my app", "set up Docker", "containerize", "production setup",
   "CI/CD pipeline", "GitHub Actions workflow", "AWS setup", "scale my app".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # DevOps & CI/CD Expert

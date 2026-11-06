@@ -8,6 +8,9 @@ description: >
   Dio HTTP client, Freezed data classes, Firebase Flutter, or cross-platform app development with Flutter.
   Also triggers for: "flutter app", "dart code", "flutter widget", "flutter project",
   "riverpod", "bloc pattern", "flutter navigation", "flutter package".
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Flutter & Dart Expert

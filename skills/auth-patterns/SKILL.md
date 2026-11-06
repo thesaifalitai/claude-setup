@@ -6,6 +6,9 @@ description: >
   JWT tokens, refresh tokens, OAuth, Google login, GitHub login, social auth,
   session management, RBAC, role-based access control, MFA, two-factor authentication,
   password reset, email verification, or any auth-related development task.
+license: MIT
+metadata:
+  author: thesaifalitai
 ---
 
 # Auth Patterns Expert
